@@ -5,7 +5,7 @@ DROP TABLE IF EXISTS AuthTokens;
 
 CREATE TABLE Users
 (
-	Username  VARCHAR NOT NULL,
+	Username   VARCHAR NOT NULL,
 	Password   VARCHAR NOT NULL,
 	Email      VARCHAR NOT NULL,
 	FirstName  VARCHAR NOT NULL,
@@ -23,6 +23,7 @@ CREATE TABLE Persons
 	AssociatedUsername  Users   NOT NULL,
 	FirstName           VARCHAR NOT NULL,
 	LastName            VARCHAR NOT NULL,
+	Gender              CHAR(1) NOT NULL,
 	FatherID            Persons,
 	MotherID            Persons,
 	SpouseID            Persons,
