@@ -96,7 +96,7 @@ public class Database {
     {
 
         try (Statement stmt = conn.createStatement()){
-            String sql = "DELETE FROM Events";
+            String sql = "DELETE FROM Events; DELETE FROM Users; DELETE FROM Persons; DELETE FROM AuthTokens";
             stmt.executeUpdate(sql);
         } catch (SQLException e) {
             throw new DataAccessException("SQL Error encountered while clearing tables");
