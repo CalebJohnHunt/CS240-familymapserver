@@ -1,60 +1,61 @@
-DROP TABLE IF EXISTS user;
-DROP TABLE IF EXISTS person;
-DROP TABLE IF EXISTS event;
-DROP TABLE IF EXISTS authToken;
+DROP TABLE IF EXISTS Users;
+DROP TABLE IF EXISTS Persons;
+DROP TABLE IF EXISTS Events;
+DROP TABLE IF EXISTS AuthTokens;
 
-CREATE TABLE user
+CREATE TABLE Users
 (
-	username   VARCHAR NOT NULL,
-	password   VARCHAR NOT NULL,
-	email      VARCHAR NOT NULL,
-	first_name VARCHAR NOT NULL,
-	last_name  VARCHAR NOT NULL,
-	gender     CHAR(1) NOT NULL,
-	person_id  VARCHAR NOT NULL,
-	
-	FOREIGN KEY(person_id) REFERENCES person(person_id)
+	Username  VARCHAR NOT NULL,
+	Password   VARCHAR NOT NULL,
+	Email      VARCHAR NOT NULL,
+	FirstName  VARCHAR NOT NULL,
+	LastName   VARCHAR NOT NULL,
+	Gender     CHAR(1) NOT NULL,
+	PersonID   VARCHAR NOT NULL,
+
+	PRIMARY KEY(Username),
+	FOREIGN KEY(PersonID) REFERENCES Persons(PersonID)
 );
 
-CREATE TABLE person
+CREATE TABLE Persons
 (
-	person_id           VARCHAR NOT NULL,
-	associated_username USER    NOT NULL,
-	first_name          VARCHAR NOT NULL,
-	last_name           VARCHAR NOT NULL,
-	father_id           PERSON,
-	mother_id           PERSON,
-	spouse_id           PERSON,
+	PersonID            VARCHAR NOT NULL,
+	AssociatedUsername  Users   NOT NULL,
+	FirstName           VARCHAR NOT NULL,
+	LastName            VARCHAR NOT NULL,
+	FatherID            Persons,
+	MotherID            Persons,
+	SpouseID            Persons,
 	
-	PRIMARY KEY(person_id),
-	FOREIGN KEY(associated_username) REFERENCES user(username),
-	FOREIGN KEY(father_id)           REFERENCES person(person_id),
-	FOREIGN KEY(mother_id)           REFERENCES person(person_id),
-	FOREIGN KEY(spouse_id)           REFERENCES person(person_id)
+	PRIMARY KEY(PersonID),
+	FOREIGN KEY(AssociatedUsername) REFERENCES Users(Username),
+	FOREIGN KEY(FatherID)           REFERENCES Persons(PersonID),
+	FOREIGN KEY(MotherID)           REFERENCES Persons(PersonID),
+	FOREIGN KEY(SpouseID)           REFERENCES Persons(PersonID)
 );
 
-CREATE TABLE event
+CREATE TABLE Events
 (
-	event_id            VARCHAR NOT NULL,
-	associated_username USER    NOT NULL,
-	person_id           PERSON  NOT NULL,
-	latitude            REAL    NOT NULL,
-	longitude           REAL    NOT NULL,
-	country             VARCHAR NOT NULL,
-	city                VARCHAR NOT NULL,
-	eventType           VARCHAR NOT NULL,
-	year                INTEGER NOT NULL,
+	EventID             VARCHAR NOT NULL,
+	AssociatedUsername  Users   NOT NULL,
+	PersonID            Persons NOT NULL,
+	Latitude            REAL    NOT NULL,
+	Longitude           REAL    NOT NULL,
+	Country             VARCHAR NOT NULL,
+	City                VARCHAR NOT NULL,
+	EventType           VARCHAR NOT NULL,
+	Year                INTEGER NOT NULL,
 	
-	PRIMARY KEY(event_id),
-	FOREIGN KEY(associated_username) REFERENCES user(username),
-	FOREIGN KEY(person_id)           REFERENCES person(person_id)
+	PRIMARY KEY(EventID),
+	FOREIGN KEY(AssociatedUsername) REFERENCES Users(Username),
+	FOREIGN KEY(PersonID)           REFERENCES Persons(PersonID)
 );
 
-CREATE TABLE authToken
+CREATE TABLE AuthTokens
 (
-	token_id            VARCHAR,
-	associated_username USER,
+	TokenID VARCHAR,
+	AssociatedUsername Users,
 	
-	PRIMARY KEY(token_id),
-	FOREIGN KEY(associated_username) REFERENCES user(username)
+	PRIMARY KEY(TokenID),
+	FOREIGN KEY(AssociatedUsername) REFERENCES Users(Username)
 );
