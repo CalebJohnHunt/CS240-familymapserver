@@ -27,7 +27,8 @@ public class UserDAO {
      * @throws DataAccessException
      */
     public void insert(User user) throws DataAccessException {
-        String sql = "INSERT INTO Users (Username, Password, Email, FirstName, LastName, Gender, PersonID) VALUES (?,?,?,?,?,?,?);";
+        String sql = "INSERT INTO Users (Username, Password, Email, FirstName, LastName, Gender, PersonID) " +
+                "VALUES (?,?,?,?,?,?,?);";
 
         try (PreparedStatement stmt = conn.prepareStatement(sql)) {
             stmt.setString(1, user.getUsername());

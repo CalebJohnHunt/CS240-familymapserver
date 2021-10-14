@@ -2,10 +2,7 @@ package dao;
 
 import model.Event;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.List;
 
 /**
@@ -110,7 +107,7 @@ public class EventDAO {
             stmt.setString(1, eventID);
             stmt.executeUpdate();
         } catch  (SQLException e) {
-            throw new DataAccessException("SQL Error encountered while deleting event.");
+            throw new DataAccessException("SQL Error encountered while deleting event");
         }
 
     }
@@ -119,6 +116,13 @@ public class EventDAO {
      * Removes all events from the database.
      * @throws DataAccessException
      */
-    public void clearTable() throws DataAccessException {}
+    public void clearTable() throws DataAccessException {
+        String sql = "DELETE FROM Events";
+        try (Statement stmt = conn.createStatement()) {
+            stmt.executeUpdate(sql);
+        } catch (SQLException e) {
+            throw new DataAccessException("Error encountered while clearing event table");
+        }
+    }
 
 }
