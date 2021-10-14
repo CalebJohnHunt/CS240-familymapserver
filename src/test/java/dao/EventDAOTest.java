@@ -93,6 +93,14 @@ public class EventDAOTest {
     }
 
     @Test
+    public void deletePass() throws DataAccessException {
+        eDao.insert(bestEvent);
+        eDao.delete(bestEvent.getEventID());
+        Event foundEvent = eDao.find(bestEvent.getEventID());
+        assertNull(foundEvent);
+    }
+
+    @Test
     public void clearPass() throws DataAccessException {
         eDao.insert(bestEvent);
         eDao.clearTable();

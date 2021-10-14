@@ -63,6 +63,14 @@ public class PersonDAOTest {
     }
 
     @Test
+    public void deletePass() throws DataAccessException {
+        pDao.insert(bestPerson);
+        pDao.delete(bestPerson.getPersonID());
+        Person foundPerson = pDao.find(bestPerson.getPersonID());
+        assertNull(foundPerson);
+    }
+
+    @Test
     public void clearPass() throws DataAccessException {
         pDao.insert(bestPerson);
         pDao.clearTable();

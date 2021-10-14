@@ -72,6 +72,14 @@ public class UserDAOTest {
         assertNull(uDao.find("definitely_fake"));
     }
 
+    @Test
+    public void deletePass() throws DataAccessException {
+        uDao.insert(bestUser);
+        uDao.delete(bestUser.getUsername());
+        User foundUser = uDao.find(bestUser.getUsername());
+        assertNull(foundUser);
+    }
+
     // Try to clear table
     @Test
     public void clearPass() throws DataAccessException {

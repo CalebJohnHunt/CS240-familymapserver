@@ -102,7 +102,7 @@ public class EventDAO {
      * @throws DataAccessException
      */
     public void delete(String eventID) throws DataAccessException {
-        String sql = "DELETE FROM Events * WHERE EventID = ?;";
+        String sql = "DELETE FROM Events WHERE EventID = ?;";
         try (PreparedStatement stmt = conn.prepareStatement(sql)) {
             stmt.setString(1, eventID);
             stmt.executeUpdate();

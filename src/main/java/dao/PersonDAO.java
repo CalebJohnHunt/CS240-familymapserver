@@ -94,7 +94,17 @@ public class PersonDAO {
      * @param personID ID of the person to remove.
      * @throws DataAccessException
      */
-    public void delete(String personID) throws DataAccessException {}
+    public void delete(String personID) throws DataAccessException {
+        String sql = "DELETE FROM Persons WHERE personID = ?;";
+
+        try (PreparedStatement stmt = conn.prepareStatement(sql)) {
+            stmt.setString(1, personID);
+
+            stmt.executeUpdate();
+        } catch (SQLException e) {
+            throw new DataAccessException("Error encountered while deleting Person");
+        }
+    }
 
     /**
      * Removes all persons from the database.
