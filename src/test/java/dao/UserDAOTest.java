@@ -47,6 +47,40 @@ public class UserDAOTest {
         assertThrows(DataAccessException.class, ()-> uDao.insert(bestUser));
     }
 
+    @Test
+    public void validatePass() throws DataAccessException {
+        uDao.insert(bestUser);
+        boolean isValid = uDao.validate(bestUser.getUsername(), bestUser.getPassword());
+        assertTrue(isValid);
+    }
+
+    @Test
+    public void validateFailBadPassword() throws DataAccessException {
+        uDao.insert(bestUser);
+        boolean isValid = uDao.validate(bestUser.getUsername(), "Bad_Password");
+        assertFalse(isValid);
+    }
+
+    @Test
+    public void validateFailBadUsername() throws DataAccessException {
+        uDao.insert(bestUser);
+        boolean isValid = uDao.validate("Bad_Username", bestUser.getPassword());
+        assertFalse(isValid);
+    }
+
+    @Test
+    public void validateFailBadUsernameAndPassword() throws DataAccessException {
+        uDao.insert(bestUser);
+        boolean isValid = uDao.validate("Bad_Username", "Bad_Password");
+        assertFalse(isValid);
+    }
+
+    @Test
+    public void validateFailNoInsert() throws DataAccessException {
+        boolean isValid = uDao.validate(bestUser.getUsername(), bestUser.getPassword());
+        assertFalse(isValid);
+    }
+
     // Same as insertPass? All right.
     @Test
     public void findPass() throws DataAccessException {
@@ -61,7 +95,7 @@ public class UserDAOTest {
 
     // Try to find a user with an empty table
     @Test
-    public void findFailNoInserts() throws DataAccessException {
+    public void findFailNoInsert() throws DataAccessException {
         assertNull(uDao.find(bestUser.getUsername()));
     }
 

@@ -67,7 +67,31 @@ public class UserDAO {
      * @return whether the user's username and password match those in the database.
      * @throws DataAccessException
      */
-    public boolean validate(String username, String password) throws DataAccessException { return false; }
+    public boolean validate(String username, String password) throws DataAccessException {
+        String sql = "SELECT Password FROM Users WHERE Username = ?;";
+
+        ResultSet rs = null;
+
+        try (PreparedStatement stmt = conn.prepareStatement(sql)) {
+            stmt.setString(1, username);
+
+            rs = stmt.executeQuery();
+            if (rs.next()) {
+                return password.equals(rs.getString("Password"));
+            }
+        } catch (SQLException e) {
+            throw new DataAccessException("Error encountered while validating user");
+        } finally {
+            if (rs != null) {
+                try {
+                    rs.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+        return false;
+    }
 
     /**
      * Finds a specified user in the database.

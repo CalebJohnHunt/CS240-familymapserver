@@ -52,7 +52,7 @@ public class PersonDAOTest {
     }
 
     @Test
-    public void findFailNoInserts() throws DataAccessException {
+    public void findFailNoInsert() throws DataAccessException {
         assertNull(pDao.find(bestPerson.getPersonID()));
     }
 

@@ -82,7 +82,7 @@ public class EventDAOTest {
     }
 
     @Test
-    public void findFailNoInserts() throws DataAccessException {
+    public void findFailNoInsert() throws DataAccessException {
         assertNull(eDao.find(bestEvent.getEventID()));
     }
 
