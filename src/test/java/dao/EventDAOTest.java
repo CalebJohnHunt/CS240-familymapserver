@@ -72,4 +72,32 @@ public class EventDAOTest {
         //comes after the "()->" and expects it to throw an instance of the class in the first parameter.
         assertThrows(DataAccessException.class, ()-> eDao.insert(bestEvent));
     }
+
+    @Test
+    public void findPass() throws DataAccessException {
+        eDao.insert(bestEvent);
+        Event foundEvent = eDao.find(bestEvent.getEventID());
+        assertNotNull(foundEvent);
+        assertEquals(bestEvent, foundEvent);
+    }
+
+    @Test
+    public void findFailNoInserts() throws DataAccessException {
+        assertNull(eDao.find(bestEvent.getEventID()));
+    }
+
+    @Test
+    public void findFailWithInsert() throws DataAccessException {
+        eDao.insert(bestEvent);
+        assertNull(eDao.find("fake-id"));
+    }
+
+    @Test
+    public void clearPass() throws DataAccessException {
+        eDao.insert(bestEvent);
+        eDao.clearTable();
+        Event foundEvent = eDao.find(bestEvent.getEventID());
+        assertNull(foundEvent);
+    }
+
 }
