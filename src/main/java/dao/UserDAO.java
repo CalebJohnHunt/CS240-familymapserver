@@ -109,7 +109,7 @@ public class UserDAO {
                 return new User(rs.getString("Username"), rs.getString("Password"),
                                 rs.getString("Email"), rs.getString("FirstName"),
                                 rs.getString("LastName"), rs.getString("Gender"),
-                                rs.getString("personID"));
+                                rs.getString("PersonID"));
             }
         } catch (SQLException e) {
             e.printStackTrace();

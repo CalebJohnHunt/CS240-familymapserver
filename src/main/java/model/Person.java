@@ -133,13 +133,29 @@ public class Person {
         if (obj.getClass() != this.getClass())
             return false;
         Person op = (Person) obj;
+
+        if (op.getFatherID() == null && getFatherID() != null ||
+              op.getFatherID() != null && getFatherID() == null ||
+              op.getMotherID() == null && getMotherID() != null ||
+              op.getMotherID() != null && getMotherID() == null ||
+              op.getSpouseID() == null && getSpouseID() != null ||
+              op.getSpouseID() != null && getSpouseID() == null)
+            return false;
+
+        if (op.getFatherID() != null && getFatherID() != null &&
+              !op.getFatherID().equals(getFatherID()))
+            return false;
+        if (op.getMotherID() != null && getMotherID() != null &&
+                !op.getMotherID().equals(getMotherID()))
+            return false;
+        if (op.getSpouseID() != null && getSpouseID() != null &&
+                !op.getSpouseID().equals(getSpouseID()))
+            return false;
+
         return op.getPersonID().equals(getPersonID()) &&
-                op.getAssociatedUsername().equals(getAssociatedUsername()) &&
-                op.getFirstName().equals(getFirstName()) &&
-                op.getLastName().equals(getLastName()) &&
-                op.getGender().equals(getGender()) &&
-                op.getFatherID().equals(getFatherID()) &&
-                op.getMotherID().equals(getMotherID()) &&
-                op.getSpouseID().equals(getSpouseID());
+                 op.getAssociatedUsername().equals(getAssociatedUsername()) &&
+                 op.getFirstName().equals(getFirstName()) &&
+                 op.getLastName().equals(getLastName()) &&
+                 op.getGender().equals(getGender());
     }
 }

@@ -1,8 +1,10 @@
 package dao;
 
 import model.Person;
+import model.User;
 
 import java.sql.*;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -81,13 +83,92 @@ public class PersonDAO {
         return null;
     }
 
+    // TODO: Not sure if this API should also get multiple generations?
+    // I'm going to leave it here for now in case it does.
     /**
      * Finds all family members of the user including mother, father, and spouse.
      * @param username the username of the user.
-     * @return a list of all the family members of the user.
+     * @return a list of all the non-null family members of the user.
      * @throws DataAccessException
      */
-    public List<Person> findFamilyOfPerson(String username) throws DataAccessException { return null; }
+    public List<Person> findFamilyOfPerson(String username) throws DataAccessException {
+        String personID = getPersonIDFromUsername(username);
+        return findImmediateFamilyOfPerson(personID);
+    }
+
+    /**
+     * Get the PersonID of the User with username
+     * @param username identifies the user to find
+     * @return the PersonID of the User with username
+     * @throws DataAccessException
+     */
+    private String getPersonIDFromUsername(String username) throws DataAccessException {
+        String sql = "SELECT PersonID FROM Persons WHERE AssociatedUsername = ?;";
+        ResultSet rs = null;
+        try (PreparedStatement stmt = conn.prepareStatement(sql)) {
+            stmt.setString(1, username);
+            rs = stmt.executeQuery();
+            if (rs.next()) {
+                return rs.getString("PersonID");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            throw new DataAccessException("Error encountered while finding user");
+        } finally {
+            if (rs != null) {
+                try {
+                    rs.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+        return "";
+    }
+
+    /**
+     * Finds the father, mother, and spouse of the Person with personID.
+     * @param personID identifies the Person
+     * @return a list of the non-null immediate family members
+     * @throws DataAccessException
+     */
+    private List<Person> findImmediateFamilyOfPerson(String personID) throws DataAccessException {
+        String sql = "SELECT FatherID, MotherID, SpouseID FROM Persons WHERE PersonID = ?;";
+        ResultSet rs = null;
+        List<Person> family = new ArrayList<>();
+
+        try (PreparedStatement stmt = conn.prepareStatement(sql)) {
+            stmt.setString(1, personID);
+
+            rs = stmt.executeQuery();
+
+            if (rs.next()) {
+                Person member;
+                if ((member = find(rs.getString("FatherID"))) != null) {
+                    family.add(member);
+                }
+                if ((member = find(rs.getString("MotherID"))) != null) {
+                    family.add(member);
+                }
+                if ((member = find(rs.getString("SpouseID"))) != null) {
+                    family.add(member);
+                }
+                return family;
+            }
+        } catch (SQLException e) {
+            throw new DataAccessException("Error encountered while finding immediate family");
+        } finally {
+            if (rs != null) {
+                try {
+                    rs.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+
+        return family;
+    }
 
     /**
      * Removes a person from the database.
