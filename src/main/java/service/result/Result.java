@@ -3,7 +3,7 @@ package service.result;
 /**
  * The base result class. Includes way to created failed results.
  */
-public class ParentResult {
+public class Result {
     /**
      * The message explaining why the API failed or succeeded.
      */
@@ -18,8 +18,8 @@ public class ParentResult {
      * @param message the message explaining why the API failed.
      * @return a failed result.
      */
-    public static ParentResult createFailed(String message) {
-        ParentResult inst = new ParentResult();
+    public static Result createFailed(String message) {
+        Result inst = new Result();
         inst.setMessage(message);
         inst.setSuccess(false);
         return inst;

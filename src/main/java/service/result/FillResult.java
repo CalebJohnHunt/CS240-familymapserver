@@ -3,7 +3,7 @@ package service.result;
 /**
  * Result of /fill/[username]/{generations}.
  */
-public class FillResult extends ParentResult {
+public class FillResult extends Result {
 
     /**
      * Creates a successful FillResult.

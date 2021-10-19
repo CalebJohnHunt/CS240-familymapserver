@@ -3,7 +3,7 @@ package service.result;
 /**
  * Result of /clear.
  */
-public class ClearResult extends ParentResult {
+public class ClearResult extends Result {
 
     /**
      * Creates a successful ClearResult

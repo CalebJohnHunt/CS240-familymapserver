@@ -3,7 +3,7 @@ package service.result;
 /**
  * Result of /load
  */
-public class LoadResult extends ParentResult {
+public class LoadResult extends Result {
 
     /**
      * Creates a successful LoadResult.

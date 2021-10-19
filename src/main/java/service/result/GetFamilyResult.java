@@ -5,7 +5,7 @@ import model.Person;
 /**
  * Result of /person.
  */
-public class GetFamilyResult extends ParentResult {
+public class GetFamilyResult extends Result {
     /**
      * The user's family members.
      */

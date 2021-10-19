@@ -5,7 +5,7 @@ import model.Event;
 /**
  * Result of /event.
  */
-public class GetFamilyEventsResult extends ParentResult {
+public class GetFamilyEventsResult extends Result {
     /**
      * The events of the user's family.
      */

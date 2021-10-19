@@ -3,7 +3,7 @@ package service.result;
 /**
  * Result of /user/login.
  */
-public class LoginResult extends ParentResult {
+public class LoginResult extends Result {
     /**
      * The unique ID for the new authToken for this login.
      */

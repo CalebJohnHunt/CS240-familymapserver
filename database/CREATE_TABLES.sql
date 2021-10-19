@@ -20,13 +20,13 @@ CREATE TABLE Users
 CREATE TABLE Persons
 (
 	PersonID            VARCHAR NOT NULL,
-	AssociatedUsername  Users   NOT NULL,
+	AssociatedUsername  VARCHAR NOT NULL,
 	FirstName           VARCHAR NOT NULL,
 	LastName            VARCHAR NOT NULL,
 	Gender              CHAR(1) NOT NULL,
-	FatherID            Persons,
-	MotherID            Persons,
-	SpouseID            Persons,
+	FatherID            VARCHAR,
+	MotherID            VARCHAR,
+	SpouseID            VARCHAR,
 	
 	PRIMARY KEY(PersonID),
 	FOREIGN KEY(AssociatedUsername) REFERENCES Users(Username),
@@ -38,8 +38,8 @@ CREATE TABLE Persons
 CREATE TABLE Events
 (
 	EventID             VARCHAR NOT NULL,
-	AssociatedUsername  Users   NOT NULL,
-	PersonID            Persons NOT NULL,
+	AssociatedUsername  VARCHAR NOT NULL,
+	PersonID            VARCHAR NOT NULL,
 	Latitude            REAL    NOT NULL,
 	Longitude           REAL    NOT NULL,
 	Country             VARCHAR NOT NULL,
@@ -54,8 +54,8 @@ CREATE TABLE Events
 
 CREATE TABLE AuthTokens
 (
-	TokenID VARCHAR,
-	AssociatedUsername Users,
+	TokenID            VARCHAR,
+	AssociatedUsername VARCHAR,
 	
 	PRIMARY KEY(TokenID),
 	FOREIGN KEY(AssociatedUsername) REFERENCES Users(Username)

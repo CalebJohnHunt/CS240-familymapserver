@@ -1,7 +1,6 @@
 package dao;
 
 import model.Person;
-import model.User;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -83,7 +82,7 @@ public class PersonDAO {
         return null;
     }
 
-    // TODO: Not sure if this API should also get multiple generations?
+    // NOTE: Not sure if this API should also get multiple generations?
     // I'm going to leave it here for now in case it does.
     /**
      * Finds all family members of the user including mother, father, and spouse.

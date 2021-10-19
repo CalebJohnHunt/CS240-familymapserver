@@ -3,7 +3,7 @@ package service.result;
 /**
  * Result for /user/register.
  */
-public class RegisterResult extends ParentResult {
+public class RegisterResult extends Result {
     /**
      * The unique ID for the new authToken created when the user registered.
      */
