@@ -26,7 +26,7 @@ public class PersonDAO {
     /**
      * Adds a person to the database.
      * @param person person to add to database.
-     * @throws DataAccessException
+     * @throws DataAccessException Error accessing data
      */
     public void insert(Person person) throws DataAccessException {
         String sql = "INSERT INTO Persons (PersonID, AssociatedUsername, FirstName, LastName, Gender, FatherID, MotherID, SpouseID) " +
@@ -52,7 +52,7 @@ public class PersonDAO {
      * Finds a person matching the ID from the database.
      * @param personID ID of the person to find.
      * @return the person with the matching ID
-     * @throws DataAccessException
+     * @throws DataAccessException Error accessing data
      */
     public Person find(String personID) throws DataAccessException {
         ResultSet rs = null;
@@ -88,7 +88,7 @@ public class PersonDAO {
      * Finds all family members of the user including mother, father, and spouse.
      * @param username the username of the user.
      * @return a list of all the non-null family members of the user.
-     * @throws DataAccessException
+     * @throws DataAccessException Error accessing data
      */
     public List<Person> findFamilyOfPerson(String username) throws DataAccessException {
         String personID = getPersonIDFromUsername(username);
@@ -99,7 +99,7 @@ public class PersonDAO {
      * Get the PersonID of the User with username
      * @param username identifies the user to find
      * @return the PersonID of the User with username
-     * @throws DataAccessException
+     * @throws DataAccessException Error accessing data
      */
     private String getPersonIDFromUsername(String username) throws DataAccessException {
         String sql = "SELECT PersonID FROM Persons WHERE AssociatedUsername = ?;";
@@ -129,7 +129,7 @@ public class PersonDAO {
      * Finds the father, mother, and spouse of the Person with personID.
      * @param personID identifies the Person
      * @return a list of the non-null immediate family members
-     * @throws DataAccessException
+     * @throws DataAccessException Error accessing data
      */
     private List<Person> findImmediateFamilyOfPerson(String personID) throws DataAccessException {
         String sql = "SELECT FatherID, MotherID, SpouseID FROM Persons WHERE PersonID = ?;";
@@ -172,7 +172,7 @@ public class PersonDAO {
     /**
      * Removes a person from the database.
      * @param personID ID of the person to remove.
-     * @throws DataAccessException
+     * @throws DataAccessException Error accessing data
      */
     public void delete(String personID) throws DataAccessException {
         String sql = "DELETE FROM Persons WHERE personID = ?;";
@@ -188,7 +188,7 @@ public class PersonDAO {
 
     /**
      * Removes all persons from the database.
-     * @throws DataAccessException
+     * @throws DataAccessException Error accessing data
      */
     public void clearTable() throws DataAccessException {
         String sql = "DELETE FROM Persons;";

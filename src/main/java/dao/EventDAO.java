@@ -3,12 +3,14 @@ package dao;
 import model.Event;
 
 import java.sql.*;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
  * Accesses data about Events from the database.
  */
 public class EventDAO {
+
     /**
      * The connection to the database.
      */
@@ -25,13 +27,13 @@ public class EventDAO {
     /**
      * Inserts a new event into the database.
      * @param event Event to insert into database.
-     * @throws DataAccessException
+     * @throws DataAccessException Error accessing data
      */
     public void insert(Event event) throws DataAccessException {
         //We can structure our string to be similar to a sql command, but if we insert question
         //marks we can change them later with help from the statement
         String sql = "INSERT INTO Events (EventID, AssociatedUsername, PersonID, Latitude, Longitude, " +
-                "Country, City, EventType, Year) VALUES(?,?,?,?,?,?,?,?,?)";
+                "Country, City, EventType, Year) VALUES (?,?,?,?,?,?,?,?,?)";
         try (PreparedStatement stmt = conn.prepareStatement(sql)) {
             //Using the statements built-in set(type) functions we can pick the question mark we want
             //to fill in and give it a proper value. The first argument corresponds to the first
@@ -56,7 +58,7 @@ public class EventDAO {
      * Finds an event in the database from an eventID.
      * @param eventID ID of the event to find.
      * @return the event with the matching eventID or null if the eventID does not exist
-     * @throws DataAccessException
+     * @throws DataAccessException  Error accessing data
      */
     public Event find(String eventID) throws DataAccessException {
         Event event;
@@ -92,14 +94,42 @@ public class EventDAO {
      * Finds all the event tied to a certain username including birth, death, etc.
      * @param username username to find events for.
      * @return List of events tied to the username
-     * @throws DataAccessException
+     * @throws DataAccessException Error accessing data
      */
-    public List<Event> findForUser(String username) throws DataAccessException { return null; }
+    public List<Event> findForUser(String username) throws DataAccessException {
+        String sql = "SELECT * FROM EVENTS WHERE AssociatedUsername = ?;";
+        ResultSet rs = null;
+        List<Event> events = new ArrayList<>();
+
+        try (PreparedStatement stmt = conn.prepareStatement(sql)) {
+            stmt.setString(1, username);
+            rs = stmt.executeQuery();
+
+            while (rs.next()) {
+                events.add(new Event(rs.getString("EventID"), rs.getString("AssociatedUsername"),
+                        rs.getString("PersonID"), rs.getFloat("Latitude"), rs.getFloat("Longitude"),
+                        rs.getString("Country"), rs.getString("City"), rs.getString("EventType"),
+                        rs.getInt("Year")));
+            }
+        } catch (SQLException e) {
+            throw new DataAccessException("Error encountered while finding events for user");
+        } finally {
+            if (rs != null) {
+                try {
+                    rs.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+
+        return events;
+    }
 
     /**
      * Removes an event from the database.
      * @param eventID ID of the event to remove.
-     * @throws DataAccessException
+     * @throws DataAccessException Error accessing data
      */
     public void delete(String eventID) throws DataAccessException {
         String sql = "DELETE FROM Events WHERE EventID = ?;";
@@ -114,7 +144,7 @@ public class EventDAO {
 
     /**
      * Removes all events from the database.
-     * @throws DataAccessException
+     * @throws DataAccessException Error accessing data
      */
     public void clearTable() throws DataAccessException {
         String sql = "DELETE FROM Events";

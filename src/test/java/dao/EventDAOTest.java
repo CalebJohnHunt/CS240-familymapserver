@@ -9,6 +9,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.sql.Connection;
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -106,6 +107,29 @@ public class EventDAOTest {
         eDao.clearTable();
         Event foundEvent = eDao.find(bestEvent.getEventID());
         assertNull(foundEvent);
+    }
+
+    @Test
+    public void findForUserPass() throws DataAccessException {
+        eDao.insert(bestEvent);
+        Event secondEvent = new Event("second_id", bestEvent.getAssociatedUsername(), "fake_id_2",
+                                      1f, 2, "USA", "Boston", "second_event_type", 2000);
+        eDao.insert(secondEvent);
+
+        List<Event> foundEvents = eDao.findForUser(bestEvent.getAssociatedUsername());
+        assertEquals(bestEvent, foundEvents.get(0));
+        assertEquals(secondEvent, foundEvents.get(1));
+    }
+
+    @Test
+    public void findForUserFail() throws DataAccessException {
+        eDao.insert(bestEvent);
+        Event secondEvent = new Event("second_id", bestEvent.getAssociatedUsername(), "fake_id_2",
+                1f, 2, "USA", "Boston", "second_event_type", 2000);
+        eDao.insert(secondEvent);
+
+        List<Event> foundEvents = eDao.findForUser("wrong username");
+        assertEquals(0, foundEvents.size());
     }
 
 }

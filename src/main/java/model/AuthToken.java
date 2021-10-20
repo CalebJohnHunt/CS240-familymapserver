@@ -15,8 +15,8 @@ public class AuthToken {
 
     /**
      * Creates an authToken
-     * @param ID
-     * @param associatedUsername
+     * @param ID Unique String to identify this token.
+     * @param associatedUsername The username of the user who created this token by logging in.
      */
     public AuthToken(String ID, String associatedUsername) {
         this.ID = ID;

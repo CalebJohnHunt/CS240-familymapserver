@@ -24,7 +24,7 @@ public class UserDAO {
     /**
      * Adds a user to the database.
      * @param user the user to add to the database.
-     * @throws DataAccessException
+     * @throws DataAccessException Error accessing data
      */
     public void insert(User user) throws DataAccessException {
         String sql = "INSERT INTO Users (Username, Password, Email, FirstName, LastName, Gender, PersonID) " +
@@ -45,27 +45,30 @@ public class UserDAO {
         }
     }
 
-    /**
-     * Fills in fake information about a user back to 4 generations.
-     * @param username the username of the user
-     */
-    public void populateData(String username) {
-        populateData(username, 4);
-    }
-
-    /**
-     * Fills in fake information about a user to a specified number of generations.
-     * @param username the username of the user.
-     * @param generations the number of generations to go back.
-     */
-    public void populateData(String username, int generations) {}
+// WAIT A SECOND
+// This is a job for handlers or services or something, not DAO! ... I think?
+//    /**
+//     * Fills in fake information about a user back to 4 generations.
+//     * @param username the username of the user
+//     */
+//    public void populateData(String username) {
+//        populateData(username, 4);
+//    }
+//
+//    /**
+//     * Fills in fake information about a user to a specified number of generations.
+//     * @param username the username of the user.
+//     * @param generations the number of generations to go back.
+//     */
+//    public void populateData(String username, int generations) {}
+//
 
     /**
      * Validates that the username and password go together and are in the database.
      * @param username the username of the user.
      * @param password the password of the user.
      * @return whether the user's username and password match those in the database.
-     * @throws DataAccessException
+     * @throws DataAccessException Error accessing data
      */
     public boolean validate(String username, String password) throws DataAccessException {
         String sql = "SELECT Password FROM Users WHERE Username = ?;";
@@ -97,7 +100,7 @@ public class UserDAO {
      * Finds a specified user in the database.
      * @param username the username of the user.
      * @return the user matching the username
-     * @throws DataAccessException
+     * @throws DataAccessException Error accessing data
      */
     public User find(String username) throws DataAccessException {
         String sql = "SELECT * FROM Users WHERE Username = ?;";
@@ -130,7 +133,7 @@ public class UserDAO {
     /**
      * Removes a specified user from the database.
      * @param username the username of the user to remove
-     * @throws DataAccessException
+     * @throws DataAccessException Error accessing data
      */
     public void delete(String username) throws DataAccessException {
         String sql = "DELETE FROM Users WHERE Username = ?;";
@@ -146,7 +149,7 @@ public class UserDAO {
 
     /**
      * Removes all users from the database.
-     * @throws DataAccessException
+     * @throws DataAccessException Error accessing data
      */
     public void clearTable() throws DataAccessException {
         try (Statement stmt = conn.createStatement()) {

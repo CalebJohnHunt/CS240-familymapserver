@@ -22,7 +22,7 @@ public class Database {
     /**
      * Opens a connection to the database.
      * @return the connection to the database.
-     * @throws DataAccessException
+     * @throws DataAccessException Error accessing data
      */
     // Whenever we want to make a change to our database we will have to open a connection and use
     // Statements created by that connection to initiate transactions
@@ -48,7 +48,7 @@ public class Database {
     /**
      * Gets the connection to the database, and creates it if it does not exist.
      * @return the connection to the database.
-     * @throws DataAccessException
+     * @throws DataAccessException Error accessing data
      */
     public Connection getConnection() throws DataAccessException {
         if(conn == null) {
@@ -60,7 +60,7 @@ public class Database {
 
     /**
      * Closes the connection to the database.
-     * @throws DataAccessException
+     * @throws DataAccessException Error accessing data
      */
     // When we are done manipulating the database it is important to close the connection. This will
     // End the transaction and allow us to either commit our changes to the database or rollback any
@@ -90,7 +90,7 @@ public class Database {
 
     /**
      * Clears every table in the database.
-     * @throws DataAccessException
+     * @throws DataAccessException Error accessing data
      */
     public void clearTables() throws DataAccessException
     {
