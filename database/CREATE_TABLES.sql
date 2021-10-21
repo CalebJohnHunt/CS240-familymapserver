@@ -13,8 +13,8 @@ CREATE TABLE Users
 	Gender     CHAR(1) NOT NULL,
 	PersonID   VARCHAR NOT NULL,
 
-	PRIMARY KEY(Username),
-	FOREIGN KEY(PersonID) REFERENCES Persons(PersonID)
+	PRIMARY KEY(Username)
+-- 	FOREIGN KEY(PersonID) REFERENCES Persons(PersonID) ON DELETE CASCADE
 );
 
 CREATE TABLE Persons
@@ -27,12 +27,12 @@ CREATE TABLE Persons
 	FatherID            VARCHAR,
 	MotherID            VARCHAR,
 	SpouseID            VARCHAR,
-	
-	PRIMARY KEY(PersonID),
-	FOREIGN KEY(AssociatedUsername) REFERENCES Users(Username),
-	FOREIGN KEY(FatherID)           REFERENCES Persons(PersonID),
-	FOREIGN KEY(MotherID)           REFERENCES Persons(PersonID),
-	FOREIGN KEY(SpouseID)           REFERENCES Persons(PersonID)
+
+	PRIMARY KEY(PersonID)
+-- 	FOREIGN KEY(AssociatedUsername) REFERENCES Users(Username)   ON DELETE CASCADE,
+-- 	FOREIGN KEY(FatherID)           REFERENCES Persons(PersonID) ON DELETE CASCADE,
+-- 	FOREIGN KEY(MotherID)           REFERENCES Persons(PersonID) ON DELETE CASCADE,
+-- 	FOREIGN KEY(SpouseID)           REFERENCES Persons(PersonID) ON DELETE CASCADE
 );
 
 CREATE TABLE Events
@@ -46,17 +46,17 @@ CREATE TABLE Events
 	City                VARCHAR NOT NULL,
 	EventType           VARCHAR NOT NULL,
 	Year                INTEGER NOT NULL,
-	
-	PRIMARY KEY(EventID),
-	FOREIGN KEY(AssociatedUsername) REFERENCES Users(Username),
-	FOREIGN KEY(PersonID)           REFERENCES Persons(PersonID)
+
+	PRIMARY KEY(EventID)
+-- 	FOREIGN KEY(AssociatedUsername) REFERENCES Users(Username)   ON DELETE CASCADE,
+-- 	FOREIGN KEY(PersonID)           REFERENCES Persons(PersonID) ON DELETE CASCADE
 );
 
 CREATE TABLE AuthTokens
 (
 	TokenID            VARCHAR,
 	AssociatedUsername VARCHAR,
-	
-	PRIMARY KEY(TokenID),
-	FOREIGN KEY(AssociatedUsername) REFERENCES Users(Username)
+
+	PRIMARY KEY(TokenID)
+-- 	FOREIGN KEY(AssociatedUsername) REFERENCES Users(Username) ON DELETE CASCADE
 );
