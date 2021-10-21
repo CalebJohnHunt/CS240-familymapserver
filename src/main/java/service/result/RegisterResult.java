@@ -7,7 +7,7 @@ public class RegisterResult extends Result {
     /**
      * The unique ID for the new authToken created when the user registered.
      */
-    private String authTokenID;
+    private String authtoken;
     /**
      * The username of the newly registered user.
      */
@@ -22,24 +22,29 @@ public class RegisterResult extends Result {
      * @param authTokenId the unique ID for the new authToken created when the user registered.
      * @param username the username of the newly registered user.
      * @param personId the unique ID of the person belonging to the new user.
-     * @return a successful RegisterResult.
      */
-    public static RegisterResult createSuccessful(String authTokenId, String username, String personId) {
-        RegisterResult inst = new RegisterResult();
-        inst.setAuthTokenID(authTokenId);
-        inst.setUsername(username);
-        inst.setPersonID(personId);
-        inst.setSuccess(true);
-
-        return inst;
+    public RegisterResult(String authTokenId, String username, String personId) {
+        setAuthtoken(authTokenId);
+        setUsername(username);
+        setPersonID(personId);
+        setSuccess(true);
     }
 
-    public String getAuthTokenID() {
-        return authTokenID;
+    /**
+     * Creates a failed RegisterResult.
+     * @param message the reason the call to the API failed.
+     */
+    public RegisterResult(String message) {
+        setMessage(message);
+        setSuccess(false);
     }
 
-    public void setAuthTokenID(String authTokenID) {
-        this.authTokenID = authTokenID;
+    public String getAuthtoken() {
+        return authtoken;
+    }
+
+    public void setAuthtoken(String authtoken) {
+        this.authtoken = authtoken;
     }
 
     public String getUsername() {

@@ -1,8 +1,5 @@
 package dao;
 
-import dao.DataAccessException;
-import dao.Database;
-import dao.EventDAO;
 import model.Event;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;

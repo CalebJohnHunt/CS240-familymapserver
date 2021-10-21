@@ -6,14 +6,11 @@ package service.result;
 public class FillResult extends Result {
 
     /**
-     * Creates a successful FillResult.
-     * @param message a message explaining that the API call succeeded.
-     * @return a successful FillResult.
+     * Creates a FillResult.
+     * @param message a message explaining that the API call succeeded or why it failed.
      */
-    public static FillResult createSuccessful(String message) {
-        FillResult inst = new FillResult();
-        inst.setMessage(message);
-        inst.setSuccess(true);
-        return inst;
+    public FillResult(Boolean success, String message) {
+        setMessage(message);
+        setSuccess(success);
     }
 }

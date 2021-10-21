@@ -24,14 +24,20 @@ public class LoginResult extends Result {
      * @param personId the ID of the person belonging to the user who just logged in.
      * @return a successful LoginResult.
      */
-    public static LoginResult createSuccessful(String authTokenId, String username, String personId) {
-        LoginResult inst = new LoginResult();
-        inst.setAuthTokenID(authTokenId);
-        inst.setUsername(username);
-        inst.setPersonID(personId);
-        inst.setSuccess(true);
+    public LoginResult(String authTokenId, String username, String personId) {
+        setAuthTokenID(authTokenId);
+        setUsername(username);
+        setPersonID(personId);
+        setSuccess(true);
+    }
 
-        return inst;
+    /**
+     * Creates a failed LoginResult.
+     * @param message the reason the call to the API failed.
+     */
+    public LoginResult(String message) {
+        setMessage(message);
+        setSuccess(false);
     }
 
     public String getAuthTokenID() {

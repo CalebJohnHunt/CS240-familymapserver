@@ -49,32 +49,35 @@ public class FindPersonResult extends Result {
      * @param fatherID the person's father.
      * @param motherID the person's mother.
      * @param spouseID the person's spouse.
-     * @return a successful FindPersonResult.
      */
-    public static FindPersonResult createSuccessful(String personID, String associatedUsername, String firstName, String lastName,
+    public FindPersonResult(String personID, String associatedUsername, String firstName, String lastName,
                   String gender, String fatherID, String motherID, String spouseID) {
-        FindPersonResult inst = new FindPersonResult();
-        inst.setPersonID(personID);
-        inst.setAssociatedUsername(associatedUsername);
-        inst.setFirstName(firstName);
-        inst.setLastName(lastName);
-        inst.setGender(gender);
-        inst.setFatherID(fatherID);
-        inst.setMotherID(motherID);
-        inst.setSpouseID(spouseID);
+        setPersonID(personID);
+        setAssociatedUsername(associatedUsername);
+        setFirstName(firstName);
+        setLastName(lastName);
+        setGender(gender);
+        setFatherID(fatherID);
+        setMotherID(motherID);
+        setSpouseID(spouseID);
+        setSuccess(true);
+    }
 
-        inst.setSuccess(true);
-
-        return inst;
+    /**
+     * Creates a failed FindPersonResult.
+     * @param message the reason the call to the API failed.
+     */
+    public FindPersonResult(String message) {
+        setMessage(message);
+        setSuccess(false);
     }
 
     /**
      * Creates a successful FindPersonResult from a Person model.
      * @param person the person which was found.
-     * @return a successful FindPersonResult.
      */
-    public static FindPersonResult createSuccessful(Person person) {
-        return createSuccessful(person.getPersonID(), person.getAssociatedUsername(), person.getFirstName(), person.getLastName(),
+    public FindPersonResult (Person person) {
+        this(person.getPersonID(), person.getAssociatedUsername(), person.getFirstName(), person.getLastName(),
                 person.getGender(), person.getFatherID(), person.getMotherID(), person.getSpouseID());
     }
 

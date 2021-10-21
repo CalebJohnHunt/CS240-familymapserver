@@ -54,33 +54,36 @@ public class FindEventResult extends Result {
      * @param city the city in which this event occurred.
      * @param eventType the type of event.
      * @param year the year in which this event occurred.
-     * @return a successful FindEventResult.
      */
-    public static FindEventResult createSuccessful(String eventID, String associatedUsername, String personID, float latitude, float longitude,
+    public FindEventResult(String eventID, String associatedUsername, String personID, float latitude, float longitude,
                  String country, String city, String eventType, int year) {
-        FindEventResult inst = new FindEventResult();
-        inst.setEventID(eventID);
-        inst.setAssociatedUsername(associatedUsername);
-        inst.setPersonID(personID);
-        inst.setLatitude(latitude);
-        inst.setLongitude(longitude);
-        inst.setCountry(country);
-        inst.setCity(city);
-        inst.setEventType(eventType);
-        inst.setYear(year);
+        setEventID(eventID);
+        setAssociatedUsername(associatedUsername);
+        setPersonID(personID);
+        setLatitude(latitude);
+        setLongitude(longitude);
+        setCountry(country);
+        setCity(city);
+        setEventType(eventType);
+        setYear(year);
+        setSuccess(true);
+    }
 
-        inst.setSuccess(true);
-
-        return inst;
+    /**
+     * Creates a failed FindEventResult
+     * @param message the message explaining why the API failed
+     */
+    public FindEventResult(String message) {
+        setMessage(message);
+        setSuccess(false);
     }
 
     /**
      * Creates a successful FindEventResult from an Event model.
      * @param event the event which was found.
-     * @return a successful FindEventResult.
      */
-    public static FindEventResult createSuccessful(Event event) {
-        return createSuccessful(event.getEventID(), event.getAssociatedUsername(), event.getPersonID(), event.getLatitude(), event.getLongitude(),
+    public FindEventResult(Event event) {
+        this(event.getEventID(), event.getAssociatedUsername(), event.getPersonID(), event.getLatitude(), event.getLongitude(),
                 event.getCountry(), event.getCity(), event.getEventType(), event.getYear());
     }
 

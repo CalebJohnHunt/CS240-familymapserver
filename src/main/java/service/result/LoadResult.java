@@ -6,14 +6,11 @@ package service.result;
 public class LoadResult extends Result {
 
     /**
-     * Creates a successful LoadResult.
-     * @param message a message explaining that the API call succeeded.
-     * @return a successful LoadResult.
+     * Creates a LoadResult.
+     * @param message a message explaining that the API call succeeded or why it failed.
      */
-    public static LoadResult createSuccessful(String message) {
-        LoadResult inst = new LoadResult();
-        inst.setMessage(message);
-        inst.setSuccess(true);
-        return inst;
+    public LoadResult(Boolean success, String message) {
+        setMessage(message);
+        setSuccess(success);
     }
 }

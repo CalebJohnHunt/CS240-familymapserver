@@ -14,16 +14,20 @@ public class GetFamilyResult extends Result {
     /**
      * Creates a successful GetFamilyResult.
      * @param data the user's family members.
-     * @return a successful GetFamilyResult.
      */
-    public static GetFamilyResult createSuccessful(Person[] data) {
-        GetFamilyResult inst = new GetFamilyResult();
-        inst.data = data;
-        inst.setSuccess(true);
-
-        return inst;
+    public GetFamilyResult(Person[] data) {
+        setData(data);
+        setSuccess(true);
     }
 
+    /**
+     * Creates a failed GetFamilyResult.
+     * @param message the reason the call to the API failed.
+     */
+    public GetFamilyResult(String message) {
+        setMessage(message);
+        setSuccess(false);
+    }
     public Person[] getData() {
         return data;
     }

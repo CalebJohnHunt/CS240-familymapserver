@@ -13,18 +13,6 @@ public class Result {
      */
     private boolean success;
 
-    /**
-     * Creates a failed result; to be used by all child classes when the result fails.
-     * @param message the message explaining why the API failed.
-     * @return a failed result.
-     */
-    public static Result createFailed(String message) {
-        Result inst = new Result();
-        inst.setMessage(message);
-        inst.setSuccess(false);
-        return inst;
-    }
-
     public String getMessage() {
         return message;
     }

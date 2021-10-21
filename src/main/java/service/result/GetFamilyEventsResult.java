@@ -14,14 +14,19 @@ public class GetFamilyEventsResult extends Result {
     /**
      * Creates a successful GetFamilyEventsResult.
      * @param data the events of the user's family.
-     * @return a successful GetFamilyEventsResult
      */
-    public static GetFamilyEventsResult createSuccessful(Event[] data) {
-        GetFamilyEventsResult inst = new GetFamilyEventsResult();
-        inst.setData(data);
-        inst.setSuccess(true);
+    public GetFamilyEventsResult(Event[] data) {
+        setData(data);
+        setSuccess(true);
+    }
 
-        return inst;
+    /**
+     * Creates a failed GetFamilyEventsResult.
+     * @param message the reason the call to the API failed.
+     */
+    public GetFamilyEventsResult(String message) {
+        setMessage(message);
+        setSuccess(false);
     }
 
     public Event[] getData() {

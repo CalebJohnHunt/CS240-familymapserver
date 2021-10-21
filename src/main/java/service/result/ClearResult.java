@@ -6,14 +6,11 @@ package service.result;
 public class ClearResult extends Result {
 
     /**
-     * Creates a successful ClearResult
-     * @param message a message explaining that the API call succeeded.
-     * @return a successful ClearResult.
+     * Creates a ClearResult
+     * @param message a message explaining that the API call succeeded or why it failed.
      */
-    public static ClearResult createSuccessful(String message) {
-        ClearResult inst = new ClearResult();
-        inst.setMessage(message);
-        inst.setSuccess(true);
-        return inst;
+    public ClearResult(Boolean success, String message) {
+        setMessage(message);
+        setSuccess(success);
     }
 }
