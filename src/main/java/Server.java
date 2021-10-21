@@ -1,4 +1,6 @@
-import Handlers.FileHandler;
+import handler.ClearHandler;
+import handler.FileHandler;
+import handler.RegisterHandler;
 import com.sun.net.httpserver.HttpServer;
 
 import java.io.IOException;
@@ -28,6 +30,9 @@ public class Server {
         System.out.println("Creating contexts");
 
         // TODO: Create additional contexts
+
+        server.createContext("/user/register", new RegisterHandler());
+        server.createContext("/clear", new ClearHandler());
 
         server.createContext("/", new FileHandler());
 
