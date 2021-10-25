@@ -1,15 +1,12 @@
 package service;
 
 import dao.DataAccessException;
-import dao.Database;
 import service.result.ClearResult;
 
 /**
  * Service for /clear.
  */
-public class ClearService {
-    private final Database db = new Database();
-
+public class ClearService extends Service {
     /**
      * Calls the /clear API.
      * @return the response from the API.

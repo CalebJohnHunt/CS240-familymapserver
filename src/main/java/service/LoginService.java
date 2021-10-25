@@ -1,7 +1,6 @@
 package service;
 
 import dao.DataAccessException;
-import dao.Database;
 import dao.UserDAO;
 import model.User;
 import service.request.LoginRequest;
@@ -10,9 +9,7 @@ import service.result.LoginResult;
 /**
  * Service for /user/login.
  */
-public class LoginService {
-    private final Database db = new Database();
-
+public class LoginService extends Service {
     /**
      * Calls the /user/login API.
      * @param request the request to the API.

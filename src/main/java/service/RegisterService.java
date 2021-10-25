@@ -1,7 +1,6 @@
 package service;
 
 import dao.*;
-import model.AuthToken;
 import model.Person;
 import model.User;
 import service.request.RegisterRequest;
@@ -13,9 +12,7 @@ import utility.IDGenerator;
 /**
  * Service for /user/register.
  */
-public class RegisterService {
-    private final Database db = new Database();
-
+public class RegisterService extends Service {
     /**
      * Registers a new user. Inserts a new user into the database, generates their personID and an AuthToken.
      * @param request the request to the API.
