@@ -7,7 +7,7 @@ public class LoginResult extends Result {
     /**
      * The unique ID for the new authToken for this login.
      */
-    private String authTokenID;
+    private String authtoken;
     /**
      * The username of the user who just logged in.
      */
@@ -25,7 +25,7 @@ public class LoginResult extends Result {
      * @return a successful LoginResult.
      */
     public LoginResult(String authTokenId, String username, String personId) {
-        setAuthTokenID(authTokenId);
+        setAuthtoken(authTokenId);
         setUsername(username);
         setPersonID(personId);
         setSuccess(true);
@@ -40,12 +40,12 @@ public class LoginResult extends Result {
         setSuccess(false);
     }
 
-    public String getAuthTokenID() {
-        return authTokenID;
+    public String getAuthtoken() {
+        return authtoken;
     }
 
-    public void setAuthTokenID(String authTokenID) {
-        this.authTokenID = authTokenID;
+    public void setAuthtoken(String authtoken) {
+        this.authtoken = authtoken;
     }
 
     public String getUsername() {

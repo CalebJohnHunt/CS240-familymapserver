@@ -24,11 +24,10 @@ public class RegisterService {
     public RegisterResult register(RegisterRequest request) throws DataAccessException {
         UserDAO uDao = new UserDAO(db.getConnection()); // starts transaction
         User newUser = new User(request.getUsername(), request.getPassword(), request.getEmail(), request.getFirstName(),
-                request.getLastName(), request.getGender(), IDGenerator.generateID());
+                request.getLastName(), request.getGender(), IDGenerator.generate());
         try {
             uDao.insert(newUser);
-            // Make authToken for the user
-            String authTokenID = insertAuthTokenForNewUser(newUser.getUsername());
+            String authTokenID = AuthTokenGenerator.generate(newUser.getUsername(), db.getConnection());
             insertPersonForNewUser(newUser);
             db.closeConnection(true);
             return new RegisterResult(authTokenID, newUser.getUsername(), newUser.getPersonID());
@@ -38,18 +37,6 @@ public class RegisterService {
             return new RegisterResult("Couldn't register user.");
         }
 
-    }
-
-    /**
-     * Create and insert an AuthToken for the user getting registered.
-     * @param username the username of the user getting registered
-     * @return the new authToken's ID
-     */
-    private String insertAuthTokenForNewUser(String username) throws DataAccessException {
-        AuthTokenDAO atDAO = new AuthTokenDAO(db.getConnection());
-        String authTokenID = IDGenerator.generateID();
-        atDAO.insert(new AuthToken(authTokenID, username));
-        return authTokenID;
     }
 
     private void insertPersonForNewUser(User newUser) throws DataAccessException {

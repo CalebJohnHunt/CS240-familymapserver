@@ -1,5 +1,6 @@
 import handler.ClearHandler;
 import handler.FileHandler;
+import handler.LoginHandler;
 import handler.RegisterHandler;
 import com.sun.net.httpserver.HttpServer;
 
@@ -32,6 +33,7 @@ public class Server {
         // TODO: Create additional contexts
 
         server.createContext("/user/register", new RegisterHandler());
+        server.createContext("/user/login", new LoginHandler());
         server.createContext("/clear", new ClearHandler());
 
         server.createContext("/", new FileHandler());
