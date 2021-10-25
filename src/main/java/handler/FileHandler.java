@@ -10,8 +10,14 @@ import java.net.HttpURLConnection;
 import java.nio.file.Files;
 import java.util.Locale;
 
+/**
+ * Default handler of http requests.
+ */
 public class FileHandler implements HttpHandler {
 
+    /**
+     * Serves relevant files. This includes index, css, favicon, and 404 error pages.
+     */
     @Override
     public void handle(HttpExchange httpExchange) throws IOException {
         if (httpExchange.getRequestMethod().toLowerCase(Locale.ROOT).equals("get")) {

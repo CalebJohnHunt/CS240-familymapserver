@@ -11,7 +11,13 @@ import java.io.*;
 import java.net.HttpURLConnection;
 import java.util.Locale;
 
+/**
+ * Handles /user/register http requests
+ */
 public class RegisterHandler implements HttpHandler {
+    /**
+     * registers a new user
+     */
     @Override
     public void handle(HttpExchange httpExchange) throws IOException {
 

@@ -1,6 +1,5 @@
 package handler;
 
-import com.google.gson.Gson;
 import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpHandler;
 import dao.DataAccessException;
@@ -11,7 +10,13 @@ import java.io.*;
 import java.net.HttpURLConnection;
 import java.util.Locale;
 
+/**
+ * Handles /clear http request.
+ */
 public class ClearHandler implements HttpHandler {
+    /**
+     * Clears all the data from the database.
+     */
     @Override
     public void handle(HttpExchange httpExchange) throws IOException {
         try {

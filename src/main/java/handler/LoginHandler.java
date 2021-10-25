@@ -11,7 +11,13 @@ import java.io.*;
 import java.net.HttpURLConnection;
 import java.util.Locale;
 
+/**
+ * Handles /user/login http requests.
+ */
 public class LoginHandler implements HttpHandler {
+    /**
+     * Logs in a user
+     */
     @Override
     public void handle(HttpExchange httpExchange) throws IOException {
         try {

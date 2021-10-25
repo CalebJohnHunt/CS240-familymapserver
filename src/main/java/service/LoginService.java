@@ -1,6 +1,5 @@
 package service;
 
-import dao.AuthTokenDAO;
 import dao.DataAccessException;
 import dao.Database;
 import dao.UserDAO;
