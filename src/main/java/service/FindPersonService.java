@@ -5,6 +5,7 @@ import dao.PersonDAO;
 import model.Person;
 import service.request.FindPersonRequest;
 import service.result.FindPersonResult;
+import service.utility.AuthorizeToken;
 
 /**
  * Service for /person/[personID].

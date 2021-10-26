@@ -5,7 +5,8 @@ import model.Person;
 import model.User;
 import service.request.RegisterRequest;
 import service.result.RegisterResult;
-import utility.IDGenerator;
+import service.utility.AuthTokenGenerator;
+import service.utility.IDGenerator;
 
 // TODO: Fill the user with fake data (i.e. give them parents and events and stuff) - Make helper class
 

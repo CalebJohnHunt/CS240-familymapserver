@@ -1,4 +1,4 @@
-package utility;
+package service.utility;
 
 import java.util.UUID;
 

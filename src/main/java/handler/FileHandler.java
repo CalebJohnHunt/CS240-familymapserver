@@ -42,6 +42,7 @@ public class FileHandler implements HttpHandler {
             respBody.close();
         } else {
             httpExchange.sendResponseHeaders(HttpURLConnection.HTTP_BAD_METHOD, 0);
+            httpExchange.getResponseBody().close();
         }
     }
 }

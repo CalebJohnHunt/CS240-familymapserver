@@ -1,9 +1,9 @@
-package service;
+package service.utility;
 
 import dao.AuthTokenDAO;
 import dao.DataAccessException;
 import model.AuthToken;
-import utility.IDGenerator;
+import service.utility.IDGenerator;
 
 import java.sql.Connection;
 

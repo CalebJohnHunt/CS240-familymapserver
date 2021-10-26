@@ -1,4 +1,4 @@
-package service;
+package service.utility;
 
 import dao.AuthTokenDAO;
 import dao.DataAccessException;
