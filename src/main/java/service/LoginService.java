@@ -1,6 +1,7 @@
 package service;
 
 import dao.DataAccessException;
+import dao.PersonDAO;
 import dao.UserDAO;
 import model.User;
 import service.request.LoginRequest;
@@ -18,10 +19,11 @@ public class LoginService extends Service {
      */
     public LoginResult login(LoginRequest request) throws DataAccessException {
         UserDAO uDao = new UserDAO(db.getConnection());
-        String personID = uDao.validate(request.getUsername(),request.getPassword());
+        boolean successfulLogin = uDao.validate(request.getUsername(),request.getPassword());
         try {
-            if (personID != null) {
+            if (successfulLogin) {
                 String authTokenID = AuthTokenGenerator.generate(request.getUsername(), db.getConnection());
+                String personID = new PersonDAO(db.getConnection()).getPersonIDFromUsername(request.getUsername());
                 db.closeConnection(true);
                 return new LoginResult(authTokenID, request.getUsername(), personID);
             }

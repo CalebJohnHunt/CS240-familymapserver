@@ -28,11 +28,11 @@ CREATE TABLE Persons
 	MotherID            VARCHAR,
 	SpouseID            VARCHAR,
 
-	PRIMARY KEY(PersonID)
+	PRIMARY KEY(PersonID),
 -- 	FOREIGN KEY(AssociatedUsername) REFERENCES Users(Username)   ON DELETE CASCADE,
--- 	FOREIGN KEY(FatherID)           REFERENCES Persons(PersonID) ON DELETE CASCADE,
--- 	FOREIGN KEY(MotherID)           REFERENCES Persons(PersonID) ON DELETE CASCADE,
--- 	FOREIGN KEY(SpouseID)           REFERENCES Persons(PersonID) ON DELETE CASCADE
+	FOREIGN KEY(FatherID)           REFERENCES Persons(PersonID) ON DELETE CASCADE,
+	FOREIGN KEY(MotherID)           REFERENCES Persons(PersonID) ON DELETE CASCADE,
+	FOREIGN KEY(SpouseID)           REFERENCES Persons(PersonID) ON DELETE CASCADE
 );
 
 CREATE TABLE Events
@@ -47,9 +47,9 @@ CREATE TABLE Events
 	EventType           VARCHAR NOT NULL,
 	Year                INTEGER NOT NULL,
 
-	PRIMARY KEY(EventID)
+	PRIMARY KEY(EventID),
 -- 	FOREIGN KEY(AssociatedUsername) REFERENCES Users(Username)   ON DELETE CASCADE,
--- 	FOREIGN KEY(PersonID)           REFERENCES Persons(PersonID) ON DELETE CASCADE
+	FOREIGN KEY(PersonID)           REFERENCES Persons(PersonID) ON DELETE CASCADE
 );
 
 CREATE TABLE AuthTokens

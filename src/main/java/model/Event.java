@@ -158,4 +158,19 @@ public class Event {
                 oe.getEventType().equals(getEventType()) &&
                 oe.getYear() == getYear();
     }
+
+    @Override
+    public String toString() {
+        return "Event{" +
+                "eventID='" + eventID + '\'' +
+                ", associatedUsername='" + associatedUsername + '\'' +
+                ", personID='" + personID + '\'' +
+                ", latitude=" + latitude +
+                ", longitude=" + longitude +
+                ", country='" + country + '\'' +
+                ", city='" + city + '\'' +
+                ", eventType='" + eventType + '\'' +
+                ", year=" + year +
+                '}';
+    }
 }

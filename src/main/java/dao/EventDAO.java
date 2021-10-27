@@ -91,7 +91,7 @@ public class EventDAO {
     }
 
     /**
-     * Finds all the event tied to a certain username including birth, death, etc.
+     * Finds all the events tied to a certain username including birth, death, etc.
      * @param username username to find events for.
      * @return List of events tied to the username
      * @throws DataAccessException Error accessing data

@@ -70,7 +70,7 @@ public class UserDAO {
      * @return whether the user's username and password match those in the database.
      * @throws DataAccessException Error accessing data
      */
-    public String validate(String username, String password) throws DataAccessException {
+    public boolean validate(String username, String password) throws DataAccessException {
         String sql = "SELECT Password, PersonID FROM Users WHERE Username = ?;";
 
         ResultSet rs = null;
@@ -81,7 +81,7 @@ public class UserDAO {
             rs = stmt.executeQuery();
             if (rs.next()) {
                 if(password.equals(rs.getString("Password"))) {
-                    return rs.getString("PersonID");
+                    return true;
                 }
             }
         } catch (SQLException e) {
@@ -95,7 +95,7 @@ public class UserDAO {
                 }
             }
         }
-        return null;
+        return false;
     }
 
     /**

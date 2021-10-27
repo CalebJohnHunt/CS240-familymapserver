@@ -1,5 +1,7 @@
 package model;
 
+import java.util.Objects;
+
 /**
  * A person.
  */
@@ -59,6 +61,11 @@ public class Person {
         this.motherID = motherID;
         this.spouseID = spouseID;
     }
+
+    /**
+     * Default constructor, leaves everything null.
+     */
+    public Person() {};
 
     public String getPersonID() {
         return personID;
@@ -157,5 +164,24 @@ public class Person {
                  op.getFirstName().equals(getFirstName()) &&
                  op.getLastName().equals(getLastName()) &&
                  op.getGender().equals(getGender());
+    }
+
+    @Override
+    public String toString() {
+        return "Person{" +
+                "personID='" + personID + '\'' +
+                ", associatedUsername='" + associatedUsername + '\'' +
+                ", firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", gender='" + gender + '\'' +
+                ", fatherID='" + fatherID + '\'' +
+                ", motherID='" + motherID + '\'' +
+                ", spouseID='" + spouseID + '\'' +
+                '}';
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(personID, associatedUsername, firstName, lastName, gender, fatherID, motherID, spouseID);
     }
 }

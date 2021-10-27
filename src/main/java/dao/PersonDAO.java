@@ -4,7 +4,9 @@ import model.Person;
 
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 /**
  * Access data about persons from the database.
@@ -44,6 +46,7 @@ public class PersonDAO {
 
             stmt.executeUpdate();
         } catch (SQLException e) {
+            e.printStackTrace();
             throw new DataAccessException("Error encountered while inserting person");
         }
     }
@@ -85,14 +88,33 @@ public class PersonDAO {
     // NOTE: Not sure if this API should also get multiple generations?
     // I'm going to leave it here for now in case it does.
     /**
-     * Finds all family members of the user including mother, father, and spouse.
+     * Finds all family members of the user including mother, father, and spouse (excluding self).
      * @param username the username of the user.
      * @return a list of all the non-null family members of the user.
      * @throws DataAccessException Error accessing data
      */
     public List<Person> findFamilyOfPerson(String username) throws DataAccessException {
+        Set<Person> familyMembers = new HashSet<>();
+
         String personID = getPersonIDFromUsername(username);
-        return findImmediateFamilyOfPerson(personID);
+        findFamilyOfPersonHelper(personID, familyMembers);
+
+        return new ArrayList<>(familyMembers);
+    }
+
+    private void findFamilyOfPersonHelper(String personID, Set<Person> familyMembers) throws DataAccessException {
+        if (personID == null) {
+            return;
+        }
+        for (Person p : findImmediateFamilyOfPerson(personID)) {
+            if (familyMembers.contains(p)) {
+                continue;
+            }
+            familyMembers.add(p);
+            findFamilyOfPersonHelper(p.getFatherID(), familyMembers);
+            findFamilyOfPersonHelper(p.getMotherID(), familyMembers);
+            findFamilyOfPersonHelper(p.getSpouseID(), familyMembers);
+        }
     }
 
     /**
@@ -101,7 +123,7 @@ public class PersonDAO {
      * @return the PersonID of the User with username
      * @throws DataAccessException Error accessing data
      */
-    private String getPersonIDFromUsername(String username) throws DataAccessException {
+    public String getPersonIDFromUsername(String username) throws DataAccessException {
         String sql = "SELECT PersonID FROM Persons WHERE AssociatedUsername = ?;";
         ResultSet rs = null;
         try (PreparedStatement stmt = conn.prepareStatement(sql)) {
@@ -155,6 +177,7 @@ public class PersonDAO {
                 return family;
             }
         } catch (SQLException e) {
+            e.printStackTrace();
             throw new DataAccessException("Error encountered while finding immediate family");
         } finally {
             if (rs != null) {
@@ -182,6 +205,7 @@ public class PersonDAO {
 
             stmt.executeUpdate();
         } catch (SQLException e) {
+            e.printStackTrace();
             throw new DataAccessException("Error encountered while deleting Person");
         }
     }

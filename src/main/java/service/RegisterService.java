@@ -6,9 +6,8 @@ import model.User;
 import service.request.RegisterRequest;
 import service.result.RegisterResult;
 import service.utility.AuthTokenGenerator;
+import service.utility.FamilyGenerator;
 import service.utility.IDGenerator;
-
-// TODO: Fill the user with fake data (i.e. give them parents and events and stuff) - Make helper class
 
 /**
  * Service for /user/register.
@@ -26,7 +25,12 @@ public class RegisterService extends Service {
         try {
             uDao.insert(newUser);
             String authTokenID = AuthTokenGenerator.generate(newUser.getUsername(), db.getConnection());
-            insertPersonForNewUser(newUser);
+
+            // Creates fake data for and inserts the user's person
+            Person person = new Person(IDGenerator.generate(), newUser.getUsername(), newUser.getFirstName(), newUser.getLastName(),
+                    newUser.getGender(), null, null, null);
+            FamilyGenerator.run(person, db.getConnection());
+
             db.closeConnection(true);
             return new RegisterResult(authTokenID, newUser.getUsername(), newUser.getPersonID());
 
@@ -35,12 +39,5 @@ public class RegisterService extends Service {
             return new RegisterResult("Couldn't register user.");
         }
 
-    }
-
-    private void insertPersonForNewUser(User newUser) throws DataAccessException {
-        PersonDAO pDAO = new PersonDAO(db.getConnection());
-        // TODO: Probably don't want null for father, mother, spouse. But that's the same thing as above: generate data
-        pDAO.insert(new Person(newUser.getPersonID(), newUser.getUsername(), newUser.getFirstName(), newUser.getLastName(),
-                newUser.getGender(), null, null, null));
     }
 }
