@@ -11,7 +11,6 @@ import java.io.IOException;
 import java.io.OutputStreamWriter;
 import java.io.Writer;
 import java.net.HttpURLConnection;
-import java.util.Locale;
 
 /**
  * Handlers /fill/[username]/{generations}
@@ -31,7 +30,7 @@ public class FillHandler implements HttpHandler {
         }
 
         try {
-            if (httpExchange.getRequestMethod().toLowerCase(Locale.ROOT).equals("post")) {
+            if (Utility.usedMethod(httpExchange, "post")) {
                 String username = URIParameters[2];
                 int generations = 4;
                 if (URIParameters.length > 3) {

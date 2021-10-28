@@ -9,7 +9,6 @@ import service.result.LoginResult;
 
 import java.io.*;
 import java.net.HttpURLConnection;
-import java.util.Locale;
 
 /**
  * Handles /user/login http requests.
@@ -21,7 +20,7 @@ public class LoginHandler implements HttpHandler {
     @Override
     public void handle(HttpExchange httpExchange) throws IOException {
         try {
-            if (httpExchange.getRequestMethod().toLowerCase(Locale.ROOT).equals("post")) {
+            if (Utility.usedMethod(httpExchange, "post")) {
                 InputStream reqBody = httpExchange.getRequestBody();
 
                 String reqData = Utility.readString(reqBody);

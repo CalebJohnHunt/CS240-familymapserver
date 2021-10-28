@@ -22,8 +22,9 @@ public class FindPersonService extends Service {
      */
     public FindPersonResult find(FindPersonRequest request) throws DataAccessException {
         PersonDAO pDao = new PersonDAO(db.getConnection());
+        AuthTokenDAO atDAO = new AuthTokenDAO(db.getConnection());
         try {
-            AuthToken authToken = new AuthTokenDAO(db.getConnection()).find(request.getAuthTokenID());
+            AuthToken authToken = atDAO.find(request.getAuthTokenID());
             if (authToken == null) {
                 return new FindPersonResult("Error: Bad Auth Token.");
             }

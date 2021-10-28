@@ -1,9 +1,10 @@
 package handler;
 
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.Reader;
+import com.sun.net.httpserver.HttpExchange;
+
+import java.io.*;
+import java.net.HttpURLConnection;
+import java.util.Locale;
 
 /**
  * A class of useful functions for handlers
@@ -38,5 +39,16 @@ public class Utility {
             sb.append(buf, 0, len);
         }
         return sb.toString();
+    }
+
+    public static boolean usedMethod(HttpExchange exchange, String method) {
+        return exchange.getRequestMethod().toLowerCase(Locale.ROOT).equals(method.toLowerCase(Locale.ROOT));
+    }
+
+    public static void writeSuccessfulResult(Object result, HttpExchange exchange) throws IOException {
+        exchange.sendResponseHeaders(HttpURLConnection.HTTP_OK, 0);
+        Writer resBody = new OutputStreamWriter(exchange.getResponseBody());
+        JSONHandler.objectToJsonWriter(result, resBody);
+        resBody.close();
     }
 }

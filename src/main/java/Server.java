@@ -32,7 +32,8 @@ public class Server {
         server.createContext("/user/register", new RegisterHandler());
         server.createContext("/user/login", new LoginHandler());
         server.createContext("/fill", new FillHandler());
-        server.createContext("/person", new FindPersonHandler());
+        server.createContext("/person/", new FindPersonHandler());
+        server.createContext("/person", new GetFamilyHandler());
         server.createContext("/clear", new ClearHandler());
 
         server.createContext("/", new FileHandler());

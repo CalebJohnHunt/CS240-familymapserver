@@ -8,7 +8,6 @@ import service.result.ClearResult;
 
 import java.io.*;
 import java.net.HttpURLConnection;
-import java.util.Locale;
 
 /**
  * Handles /clear http request.
@@ -20,7 +19,7 @@ public class ClearHandler implements HttpHandler {
     @Override
     public void handle(HttpExchange httpExchange) throws IOException {
         try {
-            if (httpExchange.getRequestMethod().toLowerCase(Locale.ROOT).equals("post")) {
+            if (Utility.usedMethod(httpExchange, "post")) {
                 ClearResult result = new ClearService().clear();
 
                 httpExchange.sendResponseHeaders(HttpURLConnection.HTTP_OK, 0);

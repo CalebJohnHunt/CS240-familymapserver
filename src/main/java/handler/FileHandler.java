@@ -8,7 +8,6 @@ import java.io.IOException;
 import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.nio.file.Files;
-import java.util.Locale;
 
 /**
  * Default handler of http requests.
@@ -20,7 +19,7 @@ public class FileHandler implements HttpHandler {
      */
     @Override
     public void handle(HttpExchange httpExchange) throws IOException {
-        if (httpExchange.getRequestMethod().toLowerCase(Locale.ROOT).equals("get")) {
+        if (Utility.usedMethod(httpExchange, "get")) {
 
             String urlPath = httpExchange.getRequestURI().toString();
             if (urlPath.equals("") || urlPath.equals("/")) {

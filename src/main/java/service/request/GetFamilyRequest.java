@@ -1,29 +1,27 @@
 package service.request;
 
-import model.AuthToken;
-
 /**
  * Request for /person.
  */
 public class GetFamilyRequest {
     /**
-     * The authToken of the user who made the request.
+     * The id of the authToken for the user who made the request.
      */
-    private AuthToken authToken;
+    private String authTokenID;
 
     /**
      * Creates a GetFamilyRequest.
      * @param authToken the authToken of the user who made the request.
      */
-    public GetFamilyRequest(AuthToken authToken) {
-        this.authToken = authToken;
+    public GetFamilyRequest(String authToken) {
+        this.authTokenID = authToken;
     }
 
-    public AuthToken getAuthToken() {
-        return authToken;
+    public String getAuthTokenID() {
+        return authTokenID;
     }
 
-    public void setAuthToken(AuthToken authToken) {
-        this.authToken = authToken;
+    public void setAuthTokenID(String authTokenID) {
+        this.authTokenID = authTokenID;
     }
 }

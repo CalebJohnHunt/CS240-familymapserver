@@ -9,7 +9,6 @@ import service.result.FindPersonResult;
 
 import java.io.*;
 import java.net.HttpURLConnection;
-import java.util.Locale;
 
 // TODO: Can only find those you are related to!
 /**
@@ -30,7 +29,7 @@ public class FindPersonHandler implements HttpHandler {
             }
 
 
-            if (httpExchange.getRequestMethod().toLowerCase(Locale.ROOT).equals("get")) {
+            if (Utility.usedMethod(httpExchange, "get")) {
                 String authTokenID = httpExchange.getRequestHeaders().get("Authorization").get(0);
 
                 String personID = URIParameters[2];

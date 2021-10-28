@@ -9,7 +9,6 @@ import service.result.RegisterResult;
 
 import java.io.*;
 import java.net.HttpURLConnection;
-import java.util.Locale;
 
 /**
  * Handles /user/register http requests
@@ -22,7 +21,7 @@ public class RegisterHandler implements HttpHandler {
     public void handle(HttpExchange httpExchange) throws IOException {
 
         try {
-            if (httpExchange.getRequestMethod().toLowerCase(Locale.ROOT).equals("post")) {
+            if (Utility.usedMethod(httpExchange, "post")) {
                 InputStream reqBody = httpExchange.getRequestBody();
 
                 String reqData = Utility.readString(reqBody);
