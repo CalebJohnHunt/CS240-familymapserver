@@ -10,4 +10,8 @@ public abstract class Service {
      * The way to interact with the database.
      */
     protected Database db;
+
+    protected Service() {
+        this.db = new Database();
+    }
 }

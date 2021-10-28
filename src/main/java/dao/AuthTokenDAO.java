@@ -100,6 +100,20 @@ public class AuthTokenDAO {
     }
 
     /**
+     * Deletes all the AuthTokens associated with the username.
+     * @param username the username which all the AuthTokens are tied to.
+     */
+    public void deleteUserAuthTokens(String username) throws DataAccessException {
+        String sql = "DELETE FROM AuthTokens WHERE AssociatedUsername = ?;";
+        try (PreparedStatement stmt = conn.prepareStatement(sql)) {
+            stmt.setString(1, username);
+            stmt.executeUpdate();
+        } catch (SQLException e) {
+            throw new DataAccessException("SQL Error encountered while deleting AuthTokens tied to a user.");
+        }
+    }
+
+    /**
      * Removes an AuthToken from the database from an AuthToken ID.
      * @param authTokenID ID of AuthToken to remove.
      * @throws DataAccessException Error accessing data

@@ -10,13 +10,8 @@ import service.result.LoadResult;
 import java.io.IOException;
 import java.io.InputStream;
 
-/**
- * Handles /load.
- */
+
 public class LoadHandler implements HttpHandler {
-    /**
-     * Loads the database with new data (and clears out old data).
-     */
     @Override
     public void handle(HttpExchange httpExchange) throws IOException {
         try {

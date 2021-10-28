@@ -47,16 +47,17 @@ public class PersonDAOTest {
 
     @Test
     public void findFamilyPassAllMembers() throws DataAccessException {
-        Person mother = new Person("mother-id", "mother_un", "mom", "my", "f", null, null, "father-id");
-        Person father = new Person("father-id", "father_un", "dad", "dy", "m", null, null, "mother-id");
-        Person spouse = new Person("spouse-id", "spouse_un", "wife", "y", "f", null, null, bestPerson.getPersonID());
-        pDao.insert(mother);
+        Person mother = new Person("mother-id", bestPerson.getAssociatedUsername(), "mom", "my", "f", null, null, "father-id");
+        Person father = new Person("father-id", bestPerson.getAssociatedUsername(), "dad", "dy", "m", null, null, "mother-id");
+        Person spouse = new Person("spouse-id", bestPerson.getAssociatedUsername(), "wife", "y", "f", null, null, bestPerson.getPersonID());
         pDao.insert(father);
+        pDao.insert(mother);
         pDao.insert(spouse);
         List<Person> expectedFamily = new ArrayList<>();
         expectedFamily.add(father);
         expectedFamily.add(mother);
         expectedFamily.add(spouse);
+        expectedFamily.add(bestPerson);
 
         bestPerson.setFatherID(father.getPersonID());
         bestPerson.setMotherID(mother.getPersonID());
@@ -66,16 +67,14 @@ public class PersonDAOTest {
 
         List<Person> family = pDao.findAssociatedPersons(bestPerson.getAssociatedUsername());
 
-        System.out.println(family);
-
         assertEquals(expectedFamily, family);
     }
 
     @Test
-    public void findFamilyPassSpouseOnly() throws DataAccessException {
-        Person mother = new Person("mother-id", "mother_un", "mom", "my", "f", null, null, "father-id");
-        Person father = new Person("father-id", "father_un", "dad", "dy", "m", null, null, "mother-id");
-        Person spouse = new Person("spouse-id", "spouse_un", "wife", "y", "f", null, null, bestPerson.getPersonID());
+    public void findImmediateFamilyPassSpouseOnly() throws DataAccessException {
+        Person mother = new Person("mother-id", bestPerson.getAssociatedUsername(), "mom", "my", "f", null, null, "father-id");
+        Person father = new Person("father-id", bestPerson.getAssociatedUsername(), "dad", "dy", "m", null, null, "mother-id");
+        Person spouse = new Person("spouse-id", bestPerson.getAssociatedUsername(), "wife", "y", "f", null, null, bestPerson.getPersonID());
         pDao.insert(mother);
         pDao.insert(father);
         pDao.insert(spouse);
@@ -93,19 +92,22 @@ public class PersonDAOTest {
     }
 
     @Test
-    public void findFamilyPassNoMembers() throws DataAccessException {
+    public void findFamilyPassOnlySelf() throws DataAccessException {
         pDao.insert(bestPerson);
 
         List<Person> family = pDao.findAssociatedPersons(bestPerson.getAssociatedUsername());
 
-        assertEquals(new ArrayList<Person>(), family);
+        List<Person> expected = new ArrayList<>();
+        expected.add(bestPerson);
+
+        assertEquals(expected, family);
     }
 
     @Test
     public void findFamilyFail() throws DataAccessException {
-        Person mother = new Person("mother-id", "mother_un", "mom", "my", "f", null, null, "father-id");
-        Person father = new Person("father-id", "father_un", "dad", "dy", "m", null, null, "mother-id");
-        Person spouse = new Person("spouse-id", "spouse_un", "wife", "y", "f", null, null, bestPerson.getPersonID());
+        Person mother = new Person("mother-id", bestPerson.getAssociatedUsername(), "mom", "my", "f", null, null, "father-id");
+        Person father = new Person("father-id", bestPerson.getAssociatedUsername(), "dad", "dy", "m", null, null, "mother-id");
+        Person spouse = new Person("spouse-id", bestPerson.getAssociatedUsername(), "wife", "y", "f", null, null, bestPerson.getPersonID());
         pDao.insert(mother);
         pDao.insert(father);
         pDao.insert(spouse);
@@ -115,7 +117,7 @@ public class PersonDAOTest {
         bestPerson.setSpouseID(spouse.getPersonID());
 
         // Suppose to be username! Not personID
-        List<Person> family = pDao.findAssociatedPersons(bestPerson.getPersonID());
+        List<Person> family = pDao.findAssociatedPersons("Unrelated username");
 
         assertEquals(new ArrayList<Person>(), family);
     }
@@ -137,6 +139,16 @@ public class PersonDAOTest {
     public void findFailWithInsert() throws DataAccessException {
         pDao.insert(bestPerson);
         assertNull(pDao.find("definitely_fake"));
+    }
+
+    @Test
+    public void deleteUserPersonsPass() throws DataAccessException {
+        pDao.insert(bestPerson);
+        pDao.insert(new Person("Garble", bestPerson.getAssociatedUsername(), "firsty", "lasty", "m", null, null, null));
+        pDao.deleteUserPersons(bestPerson.getAssociatedUsername());
+        assertEquals(new ArrayList<>(), pDao.findAssociatedPersons(bestPerson.getAssociatedUsername()));
+        assertNull(pDao.find(bestPerson.getPersonID()));
+        assertNull(pDao.find("Garble"));
     }
 
     @Test

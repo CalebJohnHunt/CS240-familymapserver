@@ -6,6 +6,8 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.sql.Connection;
+import java.util.ArrayList;
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.junit.jupiter.api.Assertions.assertNull;
@@ -59,6 +61,38 @@ public class AuthTokenDAOTest {
     public void findFailWithInsert() throws DataAccessException {
         atDao.insert(exAuthToken);
         assertNull(atDao.find("definitely_fake"));
+    }
+
+    @Test
+    public void findForUserPass() throws DataAccessException {
+        atDao.insert(exAuthToken);
+        AuthToken at2 = new AuthToken("id2", exAuthToken.getAssociatedUsername());
+        atDao.insert(at2);
+        List<AuthToken> tokens = atDao.findForUser(at2.getAssociatedUsername());
+        assertNotNull(tokens);
+        List<AuthToken> expected = new ArrayList<>();
+        expected.add(exAuthToken);
+        expected.add(at2);
+        assertEquals(expected, tokens);
+    }
+
+    @Test
+    public void findForUserFail() throws DataAccessException {
+        atDao.insert(exAuthToken);
+        AuthToken at2 = new AuthToken("id2", exAuthToken.getAssociatedUsername());
+        atDao.insert(at2);
+        List<AuthToken> tokens = atDao.findForUser("Wrong username");
+        assertEquals(new ArrayList<>(), tokens);
+    }
+
+    @Test
+    public void deleteUserAuthTokensPass() throws DataAccessException {
+        atDao.insert(exAuthToken);
+        atDao.insert(new AuthToken("Garble", exAuthToken.getAssociatedUsername()));
+        atDao.deleteUserAuthTokens(exAuthToken.getAssociatedUsername());
+        assertEquals(new ArrayList<>(), atDao.findForUser(exAuthToken.getAssociatedUsername()));
+        assertNull(atDao.find(exAuthToken.getID()));
+        assertNull(atDao.find("Garble"));
     }
 
     @Test

@@ -84,36 +84,6 @@ public class PersonDAO {
     }
 
     /**
-     * Get the PersonID of the User with username
-     * @param username identifies the user to find
-     * @return the PersonID of the User with username
-     * @throws DataAccessException Error accessing data
-     */
-    public String getPersonIDFromUsername(String username) throws DataAccessException {
-        String sql = "SELECT PersonID FROM Persons WHERE AssociatedUsername = ?;";
-        ResultSet rs = null;
-        try (PreparedStatement stmt = conn.prepareStatement(sql)) {
-            stmt.setString(1, username);
-            rs = stmt.executeQuery();
-            if (rs.next()) {
-                return rs.getString("PersonID");
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-            throw new DataAccessException("Error encountered while finding user");
-        } finally {
-            if (rs != null) {
-                try {
-                    rs.close();
-                } catch (SQLException e) {
-                    e.printStackTrace();
-                }
-            }
-        }
-        return "";
-    }
-
-    /**
      * Finds the father, mother, and spouse of the Person with personID.
      * @param username identifies the Person
      * @return a list of the non-null immediate family members
@@ -149,6 +119,20 @@ public class PersonDAO {
                     e.printStackTrace();
                 }
             }
+        }
+    }
+
+    /**
+     * Deletes all the persons associated with the username.
+     * @param username the username which all the persons are tied to.
+     */
+    public void deleteUserPersons(String username) throws DataAccessException {
+        String sql = "DELETE FROM Persons WHERE AssociatedUsername = ?;";
+        try (PreparedStatement stmt = conn.prepareStatement(sql)) {
+            stmt.setString(1, username);
+            stmt.executeUpdate();
+        } catch (SQLException e) {
+            throw new DataAccessException("SQL Error encountered while deleting persons tied to a user.");
         }
     }
 

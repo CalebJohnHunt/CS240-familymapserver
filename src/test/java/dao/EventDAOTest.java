@@ -6,6 +6,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.sql.Connection;
+import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -88,6 +89,42 @@ public class EventDAOTest {
     public void findFailWithInsert() throws DataAccessException {
         eDao.insert(bestEvent);
         assertNull(eDao.find("fake-id"));
+    }
+
+    @Test
+    public void findEventsForUserPass() throws DataAccessException {
+        eDao.insert(bestEvent);
+        Event e2 = new Event("id2", bestEvent.getAssociatedUsername(), "pid2", .1f,
+                .2f, "ukraine", "cityy", "Party", 2080);
+        eDao.insert(e2);
+        List<Event> expected = new ArrayList<>();
+        expected.add(bestEvent);
+        expected.add(e2);
+        List<Event> events = eDao.findEventsForUser(bestEvent.getAssociatedUsername());
+        assertNotNull(events);
+        assertEquals(expected, events);
+    }
+
+    @Test
+    public void findEventsForUserFail() throws DataAccessException {
+        eDao.insert(bestEvent);
+        Event e2 = new Event("id2", bestEvent.getAssociatedUsername(), "pid2", .1f,
+                .2f, "ukraine", "cityy", "Party", 2080);
+        eDao.insert(e2);
+        List<Event> expected = new ArrayList<>();
+        List<Event> events = eDao.findEventsForUser("wrong username");
+        assertEquals(expected, events);
+    }
+
+    @Test
+    public void deleteUserEventsPass() throws DataAccessException {
+        eDao.insert(bestEvent);
+        eDao.insert(new Event("ASD", bestEvent.getAssociatedUsername(), "IUB", 2.3f, 4.5f,
+                "COUNT", "CITE",  "20", 20));
+        eDao.deleteUserEvents(bestEvent.getAssociatedUsername());
+        assertEquals(new ArrayList<>(), eDao.findEventsForUser(bestEvent.getAssociatedUsername()));
+        assertNull(eDao.find(bestEvent.getEventID()));
+        assertNull(eDao.find("IUB"));
     }
 
     @Test

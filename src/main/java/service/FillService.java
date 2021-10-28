@@ -31,17 +31,11 @@ public class FillService extends Service {
                 return new FillResult(false, "Error: Username not found.");
             }
 
-            for (Person p : pDAO.findAssociatedPersons(user.getUsername())) {
-                pDAO.delete(p.getPersonID());
-            }
+            pDAO.deleteUserPersons(request.getUsername());
 
-            for (Event e : eDAO.findEventsForUser(user.getUsername())) {
-                eDAO.delete(e.getEventID());
-            }
+            eDAO.deleteUserEvents(request.getUsername());
 
-            for (AuthToken a : atDAO.findForUser(user.getUsername())) {
-                atDAO.delete(a.getID());
-            }
+            atDAO.deleteUserAuthTokens(request.getUsername());
 
             int[] itemsAdded = FamilyGenerator.run(new Person(user.getPersonID(), user.getUsername(), user.getFirstName(), user.getLastName(), user.getGender(), null, null, null),
                     request.getGenerations(), db.getConnection());

@@ -91,7 +91,7 @@ public class EventDAO {
     }
 
     /**
-     * Finds all the events tied to a certain username.
+     * Finds all the events tied to a certain username including birth, death, etc.
      * @param username username to find events for.
      * @return List of events tied to the username
      * @throws DataAccessException Error accessing data
@@ -124,6 +124,20 @@ public class EventDAO {
         }
 
         return events;
+    }
+
+    /**
+     * Deletes all the events associated with the username.
+     * @param username the username which all the events are tied to.
+     */
+    public void deleteUserEvents(String username) throws DataAccessException {
+        String sql = "DELETE FROM Events WHERE AssociatedUsername = ?;";
+        try (PreparedStatement stmt = conn.prepareStatement(sql)) {
+            stmt.setString(1, username);
+            stmt.executeUpdate();
+        } catch (SQLException e) {
+            throw new DataAccessException("SQL Error encountered while deleting events tied to a user.");
+        }
     }
 
     /**

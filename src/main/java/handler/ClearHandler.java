@@ -20,7 +20,6 @@ public class ClearHandler implements HttpHandler {
         try {
             if (HttpUtil.usedMethod(httpExchange, "post")) {
                 ClearResult result = new ClearService().clear();
-
                 HttpUtil.writeSuccessfulResult(result, httpExchange);
             } else {
                 HttpUtil.handleBadMethod(httpExchange);
