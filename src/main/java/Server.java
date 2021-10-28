@@ -37,6 +37,7 @@ public class Server {
         server.createContext("/event/", new FindEventHandler());
         server.createContext("/event", new GetFamilyEventsHandler());
         server.createContext("/clear", new ClearHandler());
+        server.createContext("/load", new LoadHandler());
 
         server.createContext("/", new FileHandler());
 

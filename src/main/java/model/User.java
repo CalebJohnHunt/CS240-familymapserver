@@ -126,4 +126,17 @@ public class User {
                 ou.getGender().equals(getGender()) &&
                 ou.getPersonID().equals(getPersonID());
     }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "username='" + username + '\'' +
+                ", password='" + password + '\'' +
+                ", email='" + email + '\'' +
+                ", firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", gender='" + gender + '\'' +
+                ", personID='" + personID + '\'' +
+                '}';
+    }
 }
