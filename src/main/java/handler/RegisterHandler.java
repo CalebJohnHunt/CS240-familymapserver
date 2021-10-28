@@ -8,7 +8,6 @@ import service.request.RegisterRequest;
 import service.result.RegisterResult;
 
 import java.io.*;
-import java.net.HttpURLConnection;
 
 /**
  * Handles /user/register http requests
@@ -28,20 +27,15 @@ public class RegisterHandler implements HttpHandler {
                 RegisterRequest request = (RegisterRequest) JSONHandler.jsonToObject(reqData, RegisterRequest.class);
                 RegisterResult result = new RegisterService().register(request);
 
-                httpExchange.sendResponseHeaders(HttpURLConnection.HTTP_OK, 0);
-                Writer resBody = new OutputStreamWriter(httpExchange.getResponseBody());
-                JSONHandler.objectToJsonWriter(result, resBody);
+                Utility.writeSuccessfulResult(result, httpExchange);
 
-                resBody.close();
 
             } else {
-                httpExchange.sendResponseHeaders(HttpURLConnection.HTTP_BAD_REQUEST, 0);
-                httpExchange.getResponseBody().close();
+                Utility.handleBadMethod(httpExchange);
             }
         } catch (IOException | DataAccessException e) {
             e.printStackTrace(); // TODO: Logger
-            httpExchange.sendResponseHeaders(HttpURLConnection.HTTP_SERVER_ERROR, 0);
-            httpExchange.getResponseBody().close();
+            Utility.handleServerError(httpExchange);
         }
     }
 

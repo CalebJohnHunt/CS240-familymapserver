@@ -7,7 +7,6 @@ import service.ClearService;
 import service.result.ClearResult;
 
 import java.io.*;
-import java.net.HttpURLConnection;
 
 /**
  * Handles /clear http request.
@@ -22,14 +21,12 @@ public class ClearHandler implements HttpHandler {
             if (Utility.usedMethod(httpExchange, "post")) {
                 ClearResult result = new ClearService().clear();
 
-                httpExchange.sendResponseHeaders(HttpURLConnection.HTTP_OK, 0);
-                Writer resBody = new OutputStreamWriter(httpExchange.getResponseBody());
-                JSONHandler.objectToJsonWriter(result, resBody);
-
-                resBody.close();
+                Utility.writeSuccessfulResult(result, httpExchange);
+            } else {
+                Utility.handleBadMethod(httpExchange);
             }
         } catch (IOException | DataAccessException e) {
-            httpExchange.sendResponseHeaders(HttpURLConnection.HTTP_SERVER_ERROR, 0);
+            Utility.handleServerError(httpExchange);
         }
     }
 }

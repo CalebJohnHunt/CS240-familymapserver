@@ -36,20 +36,14 @@ public class FindPersonHandler implements HttpHandler {
                 FindPersonRequest request = new FindPersonRequest(personID, authTokenID);
                 FindPersonResult result = new FindPersonService().find(request);
 
-                httpExchange.sendResponseHeaders(HttpURLConnection.HTTP_OK, 0);
-                Writer resBody = new OutputStreamWriter(httpExchange.getResponseBody());
-                JSONHandler.objectToJsonWriter(result, resBody);
-
-                resBody.close();
+                Utility.writeSuccessfulResult(result, httpExchange);
 
             } else {
-                httpExchange.sendResponseHeaders(HttpURLConnection.HTTP_BAD_REQUEST, 0);
-                httpExchange.getResponseBody().close();
+                Utility.handleBadMethod(httpExchange);
             }
         } catch (IOException | DataAccessException e) {
             e.printStackTrace(); // TODO: logger
-            httpExchange.sendResponseHeaders(HttpURLConnection.HTTP_SERVER_ERROR, 0);
-            httpExchange.getResponseBody().close();
+            Utility.handleServerError(httpExchange);
         }
     }
 }

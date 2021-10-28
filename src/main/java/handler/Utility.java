@@ -51,4 +51,14 @@ public class Utility {
         JSONHandler.objectToJsonWriter(result, resBody);
         resBody.close();
     }
+
+    public static void handleBadMethod(HttpExchange exchange) throws IOException {
+        exchange.sendResponseHeaders(HttpURLConnection.HTTP_BAD_REQUEST, 0);
+        exchange.getResponseBody().close();
+    }
+
+    public static void handleServerError(HttpExchange exchange) throws IOException {
+        exchange.sendResponseHeaders(HttpURLConnection.HTTP_SERVER_ERROR, 0);
+        exchange.getResponseBody().close();
+    }
 }

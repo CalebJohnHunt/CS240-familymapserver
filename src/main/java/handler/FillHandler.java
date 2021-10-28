@@ -8,8 +8,6 @@ import service.request.FillRequest;
 import service.result.FillResult;
 
 import java.io.IOException;
-import java.io.OutputStreamWriter;
-import java.io.Writer;
 import java.net.HttpURLConnection;
 
 /**
@@ -40,24 +38,17 @@ public class FillHandler implements HttpHandler {
                 FillRequest request = new FillRequest(username, generations);
                 FillResult result = new FillService().fill(request);
 
-                httpExchange.sendResponseHeaders(HttpURLConnection.HTTP_OK, 0);
-                Writer resBody = new OutputStreamWriter(httpExchange.getResponseBody());
-                JSONHandler.objectToJsonWriter(result, resBody);
-                resBody.close();
+                Utility.writeSuccessfulResult(result, httpExchange);
             } else {
-                httpExchange.sendResponseHeaders(HttpURLConnection.HTTP_BAD_METHOD, 0);
-                httpExchange.getResponseBody().close();
+                Utility.handleBadMethod(httpExchange);
             }
+        } catch (NumberFormatException e) {
+            httpExchange.sendResponseHeaders(HttpURLConnection.HTTP_BAD_REQUEST, 0);
+            FillResult result = new FillResult(false, "Error: Invalid number of generations");
+            Utility.writeSuccessfulResult(result, httpExchange);
         } catch (IOException | DataAccessException e) {
             e.printStackTrace(); // TODO: Logger
-            httpExchange.sendResponseHeaders(HttpURLConnection.HTTP_SERVER_ERROR, 0);
-            httpExchange.getResponseBody().close();
-        } catch (NumberFormatException e) {
-            e.printStackTrace(); // TODO: Logger
-            FillResult result = new FillResult(false, "Error: Invalid number of generations");
-            Writer resBody = new OutputStreamWriter(httpExchange.getResponseBody());
-            JSONHandler.objectToJsonWriter(result, resBody);
-            resBody.close();
+            Utility.handleServerError(httpExchange);
         }
     }
 }

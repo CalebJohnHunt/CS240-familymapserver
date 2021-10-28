@@ -8,7 +8,6 @@ import service.request.GetFamilyRequest;
 import service.result.GetFamilyResult;
 
 import java.io.IOException;
-import java.net.HttpURLConnection;
 
 public class GetFamilyHandler implements HttpHandler {
     @Override
@@ -22,13 +21,11 @@ public class GetFamilyHandler implements HttpHandler {
 
                 Utility.writeSuccessfulResult(result, httpExchange);
             } else {
-                httpExchange.sendResponseHeaders(HttpURLConnection.HTTP_BAD_REQUEST, 0);
-                httpExchange.getResponseBody().close();
+                Utility.handleBadMethod(httpExchange);
             }
         } catch (IOException | DataAccessException e) {
             e.printStackTrace(); // TODO: Logger
-            httpExchange.sendResponseHeaders(HttpURLConnection.HTTP_SERVER_ERROR, 0);
-            httpExchange.getResponseBody().close();
+            Utility.handleServerError(httpExchange);
         }
     }
 }

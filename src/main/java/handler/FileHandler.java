@@ -19,29 +19,33 @@ public class FileHandler implements HttpHandler {
      */
     @Override
     public void handle(HttpExchange httpExchange) throws IOException {
-        if (Utility.usedMethod(httpExchange, "get")) {
+        try {
+            if (Utility.usedMethod(httpExchange, "get")) {
 
-            String urlPath = httpExchange.getRequestURI().toString();
-            if (urlPath.equals("") || urlPath.equals("/")) {
-                urlPath = "/index.html";
-            }
-            urlPath = "web/" + urlPath;
+                String urlPath = httpExchange.getRequestURI().toString();
+                if (urlPath.equals("") || urlPath.equals("/")) {
+                    urlPath = "/index.html";
+                }
+                urlPath = "web/" + urlPath;
 
-            File file = new File(urlPath);
+                File file = new File(urlPath);
 
-            OutputStream respBody = httpExchange.getResponseBody();
+                OutputStream respBody = httpExchange.getResponseBody();
 
-            if (file.exists()) {
-                httpExchange.sendResponseHeaders(HttpURLConnection.HTTP_OK, 0);
-                Files.copy(file.toPath(), respBody);
+                if (file.exists()) {
+                    httpExchange.sendResponseHeaders(HttpURLConnection.HTTP_OK, 0);
+                    Files.copy(file.toPath(), respBody);
+                } else {
+                    httpExchange.sendResponseHeaders(HttpURLConnection.HTTP_NOT_FOUND, 0);
+                    Files.copy(new File("web/HTML/404.html").toPath(), respBody);
+                }
+                respBody.close();
             } else {
-                httpExchange.sendResponseHeaders(HttpURLConnection.HTTP_NOT_FOUND, 0);
-                Files.copy(new File("web/HTML/404.html").toPath(), respBody);
+                Utility.handleBadMethod(httpExchange);
             }
-            respBody.close();
-        } else {
-            httpExchange.sendResponseHeaders(HttpURLConnection.HTTP_BAD_METHOD, 0);
-            httpExchange.getResponseBody().close();
+        } catch (IOException e) {
+            e.printStackTrace(); // TODO: Logger
+            Utility.handleServerError(httpExchange);
         }
     }
 }
