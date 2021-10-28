@@ -21,11 +21,11 @@ public class FindEventResult extends Result {
     /**
      * The latitude of the location of this event.
      */
-    private float latitude;
+    private Float latitude;
     /**
      * The longitude of the location of this event.
      */
-    private float longitude;
+    private Float longitude;
     /**
      * The country in which this event occurred.
      */
@@ -41,7 +41,7 @@ public class FindEventResult extends Result {
     /**
      * The year when this event occurred.
      */
-    private int year;
+    private Integer year;
 
     /**
      * Creates a successful FindEventResult.
@@ -55,8 +55,8 @@ public class FindEventResult extends Result {
      * @param eventType the type of event.
      * @param year the year in which this event occurred.
      */
-    public FindEventResult(String eventID, String associatedUsername, String personID, float latitude, float longitude,
-                 String country, String city, String eventType, int year) {
+    public FindEventResult(String eventID, String associatedUsername, String personID, Float latitude, Float longitude,
+                 String country, String city, String eventType, Integer year) {
         setEventID(eventID);
         setAssociatedUsername(associatedUsername);
         setPersonID(personID);
@@ -111,19 +111,19 @@ public class FindEventResult extends Result {
         this.personID = personID;
     }
 
-    public float getLatitude() {
+    public Float getLatitude() {
         return latitude;
     }
 
-    public void setLatitude(float latitude) {
+    public void setLatitude(Float latitude) {
         this.latitude = latitude;
     }
 
-    public float getLongitude() {
+    public Float getLongitude() {
         return longitude;
     }
 
-    public void setLongitude(float longitude) {
+    public void setLongitude(Float longitude) {
         this.longitude = longitude;
     }
 
@@ -151,11 +151,11 @@ public class FindEventResult extends Result {
         this.eventType = eventType;
     }
 
-    public int getYear() {
+    public Integer getYear() {
         return year;
     }
 
-    public void setYear(int year) {
+    public void setYear(Integer year) {
         this.year = year;
     }
 }

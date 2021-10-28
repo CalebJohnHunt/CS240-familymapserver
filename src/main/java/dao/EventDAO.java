@@ -1,10 +1,13 @@
 package dao;
 
 import model.Event;
+import model.Person;
 
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 /**
  * Accesses data about Events from the database.
@@ -90,13 +93,28 @@ public class EventDAO {
         return null;
     }
 
+    public List<Event> findEventsForUserFamilyList(String username) throws DataAccessException {
+        return new ArrayList<>(findEventsForUserFamilySet(username));
+    }
+
+    public Set<Event> findEventsForUserFamilySet(String username) throws DataAccessException {
+        Set<Event> events = new HashSet<>();
+        Set<Person> family = new PersonDAO(conn).findFamilyOfPersonSet(username);
+
+        for (Person p : family) {
+            events.addAll(findEventsForUser(p.getAssociatedUsername()));
+        }
+
+        return events;
+    }
+
     /**
      * Finds all the events tied to a certain username including birth, death, etc.
      * @param username username to find events for.
      * @return List of events tied to the username
      * @throws DataAccessException Error accessing data
      */
-    public List<Event> findForUser(String username) throws DataAccessException {
+    public List<Event> findEventsForUser(String username) throws DataAccessException {
         String sql = "SELECT * FROM EVENTS WHERE AssociatedUsername = ?;";
         ResultSet rs = null;
         List<Event> events = new ArrayList<>();

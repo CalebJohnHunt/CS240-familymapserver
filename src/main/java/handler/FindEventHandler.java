@@ -3,21 +3,13 @@ package handler;
 import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpHandler;
 import dao.DataAccessException;
-import service.FindPersonService;
-import service.request.FindPersonRequest;
-import service.result.FindPersonResult;
+import service.FindEventService;
+import service.request.FindEventRequest;
+import service.result.FindEventResult;
 
-import java.io.*;
-import java.net.HttpURLConnection;
+import java.io.IOException;
 
-// TODO: Can only find those you are related to!
-/**
- * Handlers /person/[personID]
- */
-public class FindPersonHandler implements HttpHandler {
-    /**
-     * Find a person related to the user.
-     */
+public class FindEventHandler implements HttpHandler {
     @Override
     public void handle(HttpExchange httpExchange) throws IOException {
         try {
@@ -25,18 +17,17 @@ public class FindPersonHandler implements HttpHandler {
                 String authTokenID = HttpUtil.getAuthorization(httpExchange);
 
                 String[] URIParameters = httpExchange.getRequestURI().getRawPath().split("/");
-                String personID = URIParameters[2];
+                String eventID = URIParameters[2];
 
-                FindPersonRequest request = new FindPersonRequest(personID, authTokenID);
-                FindPersonResult result = new FindPersonService().find(request);
+                FindEventRequest request = new FindEventRequest(eventID, authTokenID);
+                FindEventResult result = new FindEventService().find(request);
 
                 HttpUtil.writeSuccessfulResult(result, httpExchange);
-
             } else {
                 HttpUtil.handleBadMethod(httpExchange);
             }
         } catch (IOException | DataAccessException e) {
-            e.printStackTrace(); // TODO: logger
+            e.printStackTrace(); // TODO: Logger
             HttpUtil.handleServerError(httpExchange);
         }
     }

@@ -7,23 +7,23 @@ import model.AuthToken;
  */
 public class GetFamilyEventsRequest {
     /**
-     * The authToken of the user who made the request.
+     * The authToken ID for the user who made the request.
      */
-    private AuthToken authToken;
+    private String authTokenID;
 
     /**
      * Creates a GetFamilyEventsRequest.
-     * @param authToken the authToken of the user who made the request.
+     * @param authTokenID the authToken ID for the user who made the request.
      */
-    public GetFamilyEventsRequest(AuthToken authToken) {
-        this.authToken = authToken;
+    public GetFamilyEventsRequest(String authTokenID) {
+        this.authTokenID = authTokenID;
     }
 
-    public AuthToken getAuthToken() {
-        return authToken;
+    public String getAuthTokenID() {
+        return authTokenID;
     }
 
-    public void setAuthToken(AuthToken authToken) {
-        this.authToken = authToken;
+    public void setAuthTokenID(String authTokenID) {
+        this.authTokenID = authTokenID;
     }
 }

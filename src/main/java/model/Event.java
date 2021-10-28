@@ -1,5 +1,7 @@
 package model;
 
+import java.util.Objects;
+
 /**
  * An event which occurred to a person in the database.
  */
@@ -39,7 +41,7 @@ public class Event {
     /**
      * The year when this event occurred.
      */
-    private int year;
+    private Integer year;
 
     /**
      * Creates a new event.
@@ -53,8 +55,8 @@ public class Event {
      * @param eventType the type of event.
      * @param year the year in which this event occurred.
      */
-    public Event(String eventID, String associatedUsername, String personID, float latitude, float longitude,
-                 String country, String city, String eventType, int year) {
+    public Event(String eventID, String associatedUsername, String personID, Float latitude, Float longitude,
+                 String country, String city, String eventType, Integer year) {
         this.eventID = eventID;
         this.associatedUsername = associatedUsername;
         this.personID = personID;
@@ -130,11 +132,11 @@ public class Event {
         this.eventType = eventType;
     }
 
-    public int getYear() {
+    public Integer getYear() {
         return year;
     }
 
-    public void setYear(int year) {
+    public void setYear(Integer year) {
         this.year = year;
     }
 
@@ -151,12 +153,12 @@ public class Event {
         return oe.getEventID().equals(getEventID()) &&
                 oe.getAssociatedUsername().equals(getAssociatedUsername()) &&
                 oe.getPersonID().equals(getPersonID()) &&
-                oe.getLatitude() == getLatitude() &&
-                oe.getLongitude() == getLongitude() &&
+                oe.getLatitude()==getLatitude() &&
+                oe.getLongitude()==getLongitude() &&
                 oe.getCountry().equals(getCountry()) &&
                 oe.getCity().equals(getCity()) &&
                 oe.getEventType().equals(getEventType()) &&
-                oe.getYear() == getYear();
+                oe.getYear().equals(getYear());
     }
 
     @Override
@@ -172,5 +174,10 @@ public class Event {
                 ", eventType='" + eventType + '\'' +
                 ", year=" + year +
                 '}';
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(eventID, associatedUsername, personID, latitude, longitude, country, city, eventType, year);
     }
 }

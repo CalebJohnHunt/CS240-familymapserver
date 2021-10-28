@@ -85,10 +85,8 @@ public class PersonDAO {
         return null;
     }
 
-    // NOTE: Not sure if this API should also get multiple generations?
-    // I'm going to leave it here for now in case it does.
     /**
-     * Finds all family members of the user including mother, father, and spouse (excluding self).
+     * Finds all family members of the user including mother, father, and spouse (including self).
      * @param username the username of the user.
      * @return a list of all the non-null family members of the user.
      * @throws DataAccessException Error accessing data
@@ -102,6 +100,7 @@ public class PersonDAO {
 
         String personID = getPersonIDFromUsername(username);
         findFamilyOfPersonHelper(personID, familyMembers);
+        familyMembers.add(find(personID));
 
         return familyMembers;
     }

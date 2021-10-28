@@ -110,10 +110,10 @@ public class EventDAOTest {
     public void findForUserPass() throws DataAccessException {
         eDao.insert(bestEvent);
         Event secondEvent = new Event("second_id", bestEvent.getAssociatedUsername(), "fake_id_2",
-                                      1f, 2, "USA", "Boston", "second_event_type", 2000);
+                                      1f, 2f, "USA", "Boston", "second_event_type", 2000);
         eDao.insert(secondEvent);
 
-        List<Event> foundEvents = eDao.findForUser(bestEvent.getAssociatedUsername());
+        List<Event> foundEvents = eDao.findEventsForUser(bestEvent.getAssociatedUsername());
         assertEquals(bestEvent, foundEvents.get(0));
         assertEquals(secondEvent, foundEvents.get(1));
     }
@@ -122,10 +122,10 @@ public class EventDAOTest {
     public void findForUserFail() throws DataAccessException {
         eDao.insert(bestEvent);
         Event secondEvent = new Event("second_id", bestEvent.getAssociatedUsername(), "fake_id_2",
-                1f, 2, "USA", "Boston", "second_event_type", 2000);
+                1f, 2f, "USA", "Boston", "second_event_type", 2000);
         eDao.insert(secondEvent);
 
-        List<Event> foundEvents = eDao.findForUser("wrong username");
+        List<Event> foundEvents = eDao.findEventsForUser("wrong username");
         assertEquals(0, foundEvents.size());
     }
 

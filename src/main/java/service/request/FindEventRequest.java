@@ -11,18 +11,18 @@ public class FindEventRequest {
      */
     private String eventID;
     /**
-     * The authToken of the user who made the request.
+     * The authToken ID for the user who made the request.
      */
-    private AuthToken authToken;
+    private String authTokenID;
 
     /**
      * Creates a FindEventRequest.
      * @param eventID the unique ID of the event to find.
-     * @param authToken the authToken of the user who made the request.
+     * @param authTokenID the authToken ID for the user who made the request.
      */
-    public FindEventRequest(String eventID, AuthToken authToken) {
+    public FindEventRequest(String eventID, String authTokenID) {
         this.eventID = eventID;
-        this.authToken = authToken;
+        this.authTokenID = authTokenID;
     }
 
     public String getEventID() {
@@ -33,11 +33,11 @@ public class FindEventRequest {
         this.eventID = eventID;
     }
 
-    public AuthToken getAuthToken() {
-        return authToken;
+    public String getAuthTokenID() {
+        return authTokenID;
     }
 
-    public void setAuthToken(AuthToken authToken) {
-        this.authToken = authToken;
+    public void setAuthTokenID(String authToken) {
+        this.authTokenID = authToken;
     }
 }

@@ -28,15 +28,18 @@ public class FindPersonService extends Service {
             if (authToken == null) {
                 return new FindPersonResult("Error: Bad Auth Token.");
             }
+
             Person foundPerson = pDao.find(request.getPersonID());
             if (foundPerson == null) {
                 return new FindPersonResult("Error: Person not found.");
             }
+
             Set<Person> familyMembers = pDao.findFamilyOfPersonSet(authToken.getAssociatedUsername());
             // TODO: Pretty this up
             if (!familyMembers.contains(foundPerson) && !foundPerson.getAssociatedUsername().equals(authToken.getAssociatedUsername())) { // Tho the personID exists, they aren't related to the user, so no go.
                 return new FindPersonResult("Error: Related person not found.");
             }
+            
             return new FindPersonResult(foundPerson.getPersonID(), foundPerson.getAssociatedUsername(), foundPerson.getFirstName(),
                     foundPerson.getLastName(), foundPerson.getGender(), foundPerson.getFatherID(), foundPerson.getMotherID(), foundPerson.getSpouseID());
         } catch (DataAccessException e) {
