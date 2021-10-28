@@ -27,8 +27,6 @@ public class Server {
 
         System.out.println("Creating contexts");
 
-        // TODO: Create additional contexts
-
         server.createContext("/user/register", new RegisterHandler());
         server.createContext("/user/login", new LoginHandler());
         server.createContext("/fill", new FillHandler());

@@ -66,6 +66,11 @@
       <recent name="" />
     </key>
   </component>
+  <component name="RunAnythingCache">
+    <option name="myCommands">
+      <command value="?" />
+    </option>
+  </component>
   <component name="RunManager" selected="Application.Server Port: 8001">
     <configuration name="RegisterService" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="service.RegisterService" />

@@ -65,7 +65,7 @@ public class Person {
     /**
      * Default constructor, leaves everything null.
      */
-    public Person() {};
+    public Person() {}
 
     public String getPersonID() {
         return personID;

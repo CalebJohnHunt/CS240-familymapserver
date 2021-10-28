@@ -1,7 +1,5 @@
 package service.request;
 
-import model.AuthToken;
-
 /**
  * Request to /event/[eventID].
  */

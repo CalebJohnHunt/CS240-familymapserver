@@ -8,8 +8,6 @@ import model.Person;
 import service.request.FindPersonRequest;
 import service.result.FindPersonResult;
 
-import java.util.Set;
-
 /**
  * Service for /person/[personID].
  */
@@ -34,12 +32,10 @@ public class FindPersonService extends Service {
                 return new FindPersonResult("Error: Person not found.");
             }
 
-            Set<Person> familyMembers = pDao.findFamilyOfPersonSet(authToken.getAssociatedUsername());
-            // TODO: Pretty this up
-            if (!familyMembers.contains(foundPerson) && !foundPerson.getAssociatedUsername().equals(authToken.getAssociatedUsername())) { // Tho the personID exists, they aren't related to the user, so no go.
+            if (!foundPerson.getAssociatedUsername().equals(authToken.getAssociatedUsername())) {
                 return new FindPersonResult("Error: Related person not found.");
             }
-            
+
             return new FindPersonResult(foundPerson.getPersonID(), foundPerson.getAssociatedUsername(), foundPerson.getFirstName(),
                     foundPerson.getLastName(), foundPerson.getGender(), foundPerson.getFatherID(), foundPerson.getMotherID(), foundPerson.getSpouseID());
         } catch (DataAccessException e) {

@@ -3,6 +3,8 @@ package dao;
 import model.AuthToken;
 
 import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Accesses data about AuthTokens from the database.
@@ -65,6 +67,36 @@ public class AuthTokenDAO {
         }
 
         return null;
+    }
+
+    /**
+     * Finds all the AuthTokens associated with a certain username.
+     * @param username the associated username.
+     * @return AuthTokens associated with the username.
+     */
+    public List<AuthToken> findForUser(String username) throws DataAccessException {
+        String sql = "SELECT * FROM AuthTokens WHERE AssociatedUsername = ?;";
+        List<AuthToken> authTokens = new ArrayList<>();
+        ResultSet rs = null;
+        try (PreparedStatement stmt = conn.prepareStatement(sql)) {
+            stmt.setString(1, username);
+            rs = stmt.executeQuery();
+            while (rs.next()) {
+                authTokens.add(new AuthToken(rs.getString("TokenID"), rs.getString("AssociatedUsername")));
+            }
+
+            return authTokens;
+        } catch (SQLException e) {
+            throw new DataAccessException("Error encountered while finding AuthTokens for user");
+        } finally {
+            if (rs != null) {
+                try {
+                    rs.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
     }
 
     /**

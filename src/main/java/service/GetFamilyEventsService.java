@@ -3,13 +3,10 @@ package service;
 import dao.AuthTokenDAO;
 import dao.DataAccessException;
 import dao.EventDAO;
-import dao.PersonDAO;
 import model.AuthToken;
 import model.Event;
-import model.Person;
 import service.request.GetFamilyEventsRequest;
 import service.result.GetFamilyEventsResult;
-import service.result.GetFamilyResult;
 
 import java.util.List;
 
@@ -32,7 +29,7 @@ public class GetFamilyEventsService extends Service {
                 return new GetFamilyEventsResult("Error: Bad authToken.");
             }
 
-            List<Event> eventsList = eDAO.findEventsForUserFamilyList(authToken.getAssociatedUsername());
+            List<Event> eventsList = eDAO.findEventsForUser(authToken.getAssociatedUsername());
             Event[] eventsArray = eventsList.toArray(new Event[0]);
 
             return new GetFamilyEventsResult(eventsArray);

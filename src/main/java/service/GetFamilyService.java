@@ -29,7 +29,7 @@ public class GetFamilyService extends Service {
                 return new GetFamilyResult("Error: Bad authToken.");
             }
 
-            List<Person> familyList = pDAO.findFamilyOfPersonList(authToken.getAssociatedUsername());
+            List<Person> familyList = pDAO.findAssociatedPersons(authToken.getAssociatedUsername());
             Person[] familyArray = familyList.toArray(new Person[0]);
 
             return new GetFamilyResult(familyArray);

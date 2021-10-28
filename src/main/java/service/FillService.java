@@ -1,20 +1,18 @@
 package service;
 
-import dao.DataAccessException;
-import dao.PersonDAO;
+import dao.*;
+import model.AuthToken;
+import model.Event;
 import model.Person;
+import model.User;
 import service.request.FillRequest;
 import service.result.FillResult;
 import service.utility.FamilyGenerator;
-
-import java.util.Random;
 
 /**
  * Service for /fill/[username]/{generations}.
  */
 public class FillService extends Service {
-    private static final Random random = new Random();
-
     /**
      * Calls the /fill/[username]/{generations}.
      * @param request the request to the API.
@@ -22,23 +20,32 @@ public class FillService extends Service {
      */
     public FillResult fill(FillRequest request) throws DataAccessException {
         PersonDAO pDAO = new PersonDAO(db.getConnection());
+        EventDAO eDAO  = new EventDAO(db.getConnection());
+        AuthTokenDAO atDAO = new AuthTokenDAO(db.getConnection());
+        UserDAO uDAO = new UserDAO(db.getConnection());
         try {
-            Person person = pDAO.find(pDAO.getPersonIDFromUsername(request.getUsername()));
-            if (person == null) {
+
+            User user = uDAO.find(request.getUsername());
+            if (user == null) {
                 db.closeConnection(false);
                 return new FillResult(false, "Error: Username not found.");
             }
 
-            // Remove all the family members of the user. Because of SQLite foreign keys, their events come down with
-            //  the persons.
-            for (Person p : pDAO.findFamilyOfPersonList(request.getUsername())) {
+            for (Person p : pDAO.findAssociatedPersons(user.getUsername())) {
                 pDAO.delete(p.getPersonID());
             }
 
-            pDAO.delete(person.getPersonID());
+            for (Event e : eDAO.findEventsForUser(user.getUsername())) {
+                eDAO.delete(e.getEventID());
+            }
 
-            // This will set up the person with new parents!
-            int[] itemsAdded = FamilyGenerator.run(person, request.getGenerations(), db.getConnection());
+            for (AuthToken a : atDAO.findForUser(user.getUsername())) {
+                atDAO.delete(a.getID());
+            }
+
+            int[] itemsAdded = FamilyGenerator.run(new Person(user.getPersonID(), user.getUsername(), user.getFirstName(), user.getLastName(), user.getGender(), null, null, null),
+                    request.getGenerations(), db.getConnection());
+            System.out.println("Ran generator!");
 
             db.closeConnection(true);
             return new FillResult(true, "Successfully added " + itemsAdded[0]

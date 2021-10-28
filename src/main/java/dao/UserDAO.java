@@ -45,24 +45,6 @@ public class UserDAO {
         }
     }
 
-// WAIT A SECOND
-// This is a job for handlers or services or something, not DAO! ... I think?
-//    /**
-//     * Fills in fake information about a user back to 4 generations.
-//     * @param username the username of the user
-//     */
-//    public void populateData(String username) {
-//        populateData(username, 4);
-//    }
-//
-//    /**
-//     * Fills in fake information about a user to a specified number of generations.
-//     * @param username the username of the user.
-//     * @param generations the number of generations to go back.
-//     */
-//    public void populateData(String username, int generations) {}
-//
-
     /**
      * Validates that the username and password go together and are in the database.
      * @param username the username of the user.

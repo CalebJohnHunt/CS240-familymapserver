@@ -22,7 +22,6 @@ public class LoginResult extends Result {
      * @param authTokenId the unique ID for the new authToken for this login.
      * @param username the username of the user who just logged in.
      * @param personId the ID of the person belonging to the user who just logged in.
-     * @return a successful LoginResult.
      */
     public LoginResult(String authTokenId, String username, String personId) {
         setAuthtoken(authTokenId);

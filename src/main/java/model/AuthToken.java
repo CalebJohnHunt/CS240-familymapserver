@@ -51,4 +51,12 @@ public class AuthToken {
         return oat.getID().equals(getID()) &&
                 oat.getAssociatedUsername().equals(getAssociatedUsername());
     }
+
+    @Override
+    public String toString() {
+        return "AuthToken{" +
+                "ID='" + ID + '\'' +
+                ", associatedUsername='" + associatedUsername + '\'' +
+                '}';
+    }
 }

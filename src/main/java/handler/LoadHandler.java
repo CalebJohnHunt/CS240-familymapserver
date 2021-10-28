@@ -21,7 +21,6 @@ public class LoadHandler implements HttpHandler {
 
                 LoadRequest request = (LoadRequest) JSONHandler.jsonToObject(reqData, LoadRequest.class);
                 LoadResult result = new LoadService().load(request);
-                System.out.println("hey");
 
                 HttpUtil.writeSuccessfulResult(result, httpExchange);
             } else {

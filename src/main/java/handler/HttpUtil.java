@@ -11,7 +11,7 @@ import java.util.Locale;
  */
 public final class HttpUtil {
     // Shouldn't be instantiated.
-    private HttpUtil(){};
+    private HttpUtil(){}
 
     /**
      * Read all the input from a stream and return it as a String.

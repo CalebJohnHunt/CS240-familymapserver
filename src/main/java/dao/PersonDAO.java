@@ -4,9 +4,7 @@ import model.Person;
 
 import java.sql.*;
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 /**
  * Access data about persons from the database.
@@ -86,41 +84,6 @@ public class PersonDAO {
     }
 
     /**
-     * Finds all family members of the user including mother, father, and spouse (including self).
-     * @param username the username of the user.
-     * @return a list of all the non-null family members of the user.
-     * @throws DataAccessException Error accessing data
-     */
-    public List<Person> findFamilyOfPersonList(String username) throws DataAccessException {
-        return new ArrayList<>(findFamilyOfPersonSet(username));
-    }
-
-    public Set<Person> findFamilyOfPersonSet(String username) throws DataAccessException {
-        Set<Person> familyMembers = new HashSet<>();
-
-        String personID = getPersonIDFromUsername(username);
-        findFamilyOfPersonHelper(personID, familyMembers);
-        familyMembers.add(find(personID));
-
-        return familyMembers;
-    }
-
-    private void findFamilyOfPersonHelper(String personID, Set<Person> familyMembers) throws DataAccessException {
-        if (personID == null) {
-            return;
-        }
-        for (Person p : findImmediateFamilyOfPerson(personID)) {
-            if (familyMembers.contains(p)) {
-                continue;
-            }
-            familyMembers.add(p);
-            findFamilyOfPersonHelper(p.getFatherID(), familyMembers);
-            findFamilyOfPersonHelper(p.getMotherID(), familyMembers);
-            findFamilyOfPersonHelper(p.getSpouseID(), familyMembers);
-        }
-    }
-
-    /**
      * Get the PersonID of the User with username
      * @param username identifies the user to find
      * @return the PersonID of the User with username
@@ -152,33 +115,29 @@ public class PersonDAO {
 
     /**
      * Finds the father, mother, and spouse of the Person with personID.
-     * @param personID identifies the Person
+     * @param username identifies the Person
      * @return a list of the non-null immediate family members
      * @throws DataAccessException Error accessing data
      */
-    private List<Person> findImmediateFamilyOfPerson(String personID) throws DataAccessException {
-        String sql = "SELECT FatherID, MotherID, SpouseID FROM Persons WHERE PersonID = ?;";
+    public List<Person> findAssociatedPersons(String username) throws DataAccessException {
+        String sql = "SELECT * FROM Persons WHERE AssociatedUsername = ?;";
         ResultSet rs = null;
         List<Person> family = new ArrayList<>();
 
         try (PreparedStatement stmt = conn.prepareStatement(sql)) {
-            stmt.setString(1, personID);
+            stmt.setString(1, username);
 
             rs = stmt.executeQuery();
 
-            if (rs.next()) {
-                Person member;
-                if ((member = find(rs.getString("FatherID"))) != null) {
-                    family.add(member);
-                }
-                if ((member = find(rs.getString("MotherID"))) != null) {
-                    family.add(member);
-                }
-                if ((member = find(rs.getString("SpouseID"))) != null) {
-                    family.add(member);
-                }
-                return family;
+            while (rs.next()) {
+                Person member = new Person(rs.getString("PersonID"), rs.getString("AssociatedUsername"),
+                        rs.getString("FirstName"), rs.getString("LastName"),
+                        rs.getString("Gender"), rs.getString("FatherID"),
+                        rs.getString("MotherID"), rs.getString("SpouseID"));
+                family.add(member);
             }
+
+            return family;
         } catch (SQLException e) {
             e.printStackTrace();
             throw new DataAccessException("Error encountered while finding immediate family");
@@ -191,8 +150,6 @@ public class PersonDAO {
                 }
             }
         }
-
-        return family;
     }
 
     /**

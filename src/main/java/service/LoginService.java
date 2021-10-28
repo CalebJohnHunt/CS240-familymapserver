@@ -3,7 +3,6 @@ package service;
 import dao.DataAccessException;
 import dao.PersonDAO;
 import dao.UserDAO;
-import model.User;
 import service.request.LoginRequest;
 import service.result.LoginResult;
 import service.utility.AuthTokenGenerator;

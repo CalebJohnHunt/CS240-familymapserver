@@ -8,9 +8,7 @@ import service.request.FindPersonRequest;
 import service.result.FindPersonResult;
 
 import java.io.*;
-import java.net.HttpURLConnection;
 
-// TODO: Can only find those you are related to!
 /**
  * Handlers /person/[personID]
  */

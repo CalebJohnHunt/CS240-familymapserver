@@ -18,11 +18,6 @@ public class FamilyGenerator {
      */
     private static final int DEFAULT_GENERATIONS = 4;
     /**
-     * Signifies that this death year should be ignored. Used for current persons.
-     */
-    public static final int NO_DEATH_YEAR = 0xffffff;
-
-    /**
      * Main way to use random.
      */
     private static final Random random = new Random();
@@ -56,8 +51,15 @@ public class FamilyGenerator {
     public static int[] run(Person person, int generations, Connection conn) {
         setup(conn);
 
-        Person finishedPerson = generateFamily(person, person.getGender(), generations, generateBirthYear(), NO_DEATH_YEAR);
-        insertPerson(finishedPerson);
+        int birthYear = generateBirthYear();
+        generateEvent(person, LocationDataWrapper.random(), "birth", birthYear);
+
+        if (generations > 0) {
+            generateParentsForPerson(person, generations-1, birthYear);
+        }
+
+        insertPerson(person);
+
         return new int[] {personsAdded, eventsAdded};
     }
 
@@ -73,15 +75,15 @@ public class FamilyGenerator {
 
     /**
      * Generates the person and their parents, then continues to do so recursively through the generations.
-     * @param person the person to create.
+     * @param associatedUsername the username of the root person.
      * @param gender the gender of the person (for random naming).
      * @param generations the number of generations to create.
      * @param birthYear the year of birth for the person.
      * @param deathYear the year of death for the person.
      * @return the person which was generated (with motherID, fatherID, and possibly spouseID!).
      */
-    public static Person generateFamily(Person person, String gender, int generations, int birthYear, int deathYear) {
-        Person generatePerson = generatePerson(person, gender, birthYear, deathYear);
+    private static Person generateFamily(String associatedUsername, String gender, int generations, int birthYear, int deathYear) {
+        Person generatePerson = generatePerson(associatedUsername, gender, birthYear, deathYear);
 
         if (generations > 0) {
             generateParentsForPerson(generatePerson, generations-1, birthYear);
@@ -94,35 +96,29 @@ public class FamilyGenerator {
 
     /**
      * Generates the person; if it's the root person, we only give it a birth event, otherwise generate all the fake data too.
-     * @param person the person to generate (null to create a random one).
+     * @param associatedUsername the username of the root person.
      * @param gender the gender of the person (for naming).
      * @param birthYear the year of birth for the person.
      * @param deathYear the year of death for the person.
      * @return the person which was generated.
      */
-    private static Person generatePerson(Person person, String gender, int birthYear, int deathYear) {
-        // If we have a person, it's because it's our base person (our root). We don't want to change anything about
-        //  them; we only add a birth event for them.
-        //  Otherwise, we're making an ancestor, and thus we make everything up!
-        if (person == null) {
-            person = new Person();
-            person.setGender(gender);
-            if (gender.equals("f")) {
-                person.setFirstName(NameDataHolder.fRandom());
-            } else {
-                person.setFirstName(NameDataHolder.mRandom());
-            }
-            person.setLastName(NameDataHolder.sRandom());
-
-            // This is not perfect. It could be a UUID, but that seems silly
-            person.setAssociatedUsername(person.getFirstName() + '_' + person.getLastName() + random.nextInt());
-
-            person.setPersonID(IDGenerator.generate());
-
-            generateEvent(person, LocationDataWrapper.random(), "death", deathYear);
+    private static Person generatePerson(String associatedUsername, String gender, int birthYear, int deathYear) {
+        Person person = new Person();
+        person.setGender(gender);
+        if (gender.equals("f")) {
+            person.setFirstName(NameDataHolder.fRandom());
+        } else {
+            person.setFirstName(NameDataHolder.mRandom());
         }
+        person.setLastName(NameDataHolder.sRandom());
+
+        person.setAssociatedUsername(associatedUsername);
+
+        person.setPersonID(IDGenerator.generate());
 
         generateEvent(person, LocationDataWrapper.random(), "birth", birthYear);
+        generateEvent(person, LocationDataWrapper.random(), "death", deathYear);
+
 
         // DON'T Save person in database yet (w/o possible parents)
         // Remember: As soon as we save someone, it's really hard to change them.
@@ -138,19 +134,18 @@ public class FamilyGenerator {
      */
     private static void generateParentsForPerson(Person child, int generations, int childBirthYear) {
 
-        Person mother = generateFamily(null, "f", generations,
+        Person mother = generateFamily(child.getAssociatedUsername(), "f", generations,
                 childBirthYear - random.nextInt(25)-20, childBirthYear + random.nextInt(50)+10);
-        Person father = generateFamily(null, "m", generations,
+        Person father = generateFamily(child.getAssociatedUsername(), "m", generations,
                 childBirthYear - random.nextInt(25)-22, childBirthYear + random.nextInt(50)+10);
 
         mother.setSpouseID(father.getPersonID());
         father.setSpouseID(mother.getPersonID());
 
-        Location location = LocationDataWrapper.random();
-
         // Generate marriages
-        Event marriage = generateEvent(mother, location, "marriage", childBirthYear - random.nextInt(4)-1);
-        generateEvent(father, location, marriage.getEventType(), marriage.getYear());
+        Location marriageLocation = LocationDataWrapper.random();
+        Event marriage = generateEvent(mother, marriageLocation, "marriage", childBirthYear - random.nextInt(4)-1);
+        generateEvent(father, marriageLocation, marriage.getEventType(), marriage.getYear());
 
         insertPerson(mother);
         insertPerson(father);
@@ -209,13 +204,5 @@ public class FamilyGenerator {
      */
     private static int generateBirthYear() {
         return 1950 + random.nextInt(71);
-    }
-
-    public static int getPersonsAdded() {
-        return personsAdded;
-    }
-
-    public static int getEventsAdded() {
-        return eventsAdded;
     }
 }
