@@ -9,7 +9,13 @@ import service.result.GetFamilyEventsResult;
 
 import java.io.IOException;
 
+/**
+ * Handles /event
+ */
 public class GetFamilyEventsHandler implements HttpHandler {
+    /**
+     * Returns all the events from all family members of the authToken user.
+     */
     @Override
     public void handle(HttpExchange httpExchange) throws IOException {
         try {

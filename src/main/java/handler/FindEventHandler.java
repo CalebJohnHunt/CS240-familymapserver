@@ -9,7 +9,13 @@ import service.result.FindEventResult;
 
 import java.io.IOException;
 
+/**
+ * Handles /event/[eventID]
+ */
 public class FindEventHandler implements HttpHandler {
+    /**
+     * Finds the specified event.
+     */
     @Override
     public void handle(HttpExchange httpExchange) throws IOException {
         try {
