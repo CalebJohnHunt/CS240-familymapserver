@@ -27,7 +27,7 @@ public class RegisterService extends Service {
             String authTokenID = AuthTokenGenerator.generate(newUser.getUsername(), db.getConnection());
 
             // Creates fake data for and inserts the user's person
-            Person person = new Person(IDGenerator.generate(), newUser.getUsername(), newUser.getFirstName(), newUser.getLastName(),
+            Person person = new Person(newUser.getPersonID(), newUser.getUsername(), newUser.getFirstName(), newUser.getLastName(),
                     newUser.getGender(), null, null, null);
             FamilyGenerator.run(person, db.getConnection());
 

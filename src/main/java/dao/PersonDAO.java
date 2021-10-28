@@ -93,13 +93,17 @@ public class PersonDAO {
      * @return a list of all the non-null family members of the user.
      * @throws DataAccessException Error accessing data
      */
-    public List<Person> findFamilyOfPerson(String username) throws DataAccessException {
+    public List<Person> findFamilyOfPersonList(String username) throws DataAccessException {
+        return new ArrayList<>(findFamilyOfPersonSet(username));
+    }
+
+    public Set<Person> findFamilyOfPersonSet(String username) throws DataAccessException {
         Set<Person> familyMembers = new HashSet<>();
 
         String personID = getPersonIDFromUsername(username);
         findFamilyOfPersonHelper(personID, familyMembers);
 
-        return new ArrayList<>(familyMembers);
+        return familyMembers;
     }
 
     private void findFamilyOfPersonHelper(String personID, Set<Person> familyMembers) throws DataAccessException {

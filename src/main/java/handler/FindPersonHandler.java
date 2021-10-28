@@ -33,7 +33,7 @@ public class FindPersonHandler implements HttpHandler {
             if (httpExchange.getRequestMethod().toLowerCase(Locale.ROOT).equals("get")) {
                 String authTokenID = httpExchange.getRequestHeaders().get("Authorization").get(0);
 
-                String personID = URIParameters[1];
+                String personID = URIParameters[2];
                 FindPersonRequest request = new FindPersonRequest(personID, authTokenID);
                 FindPersonResult result = new FindPersonService().find(request);
 

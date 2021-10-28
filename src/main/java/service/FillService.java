@@ -31,7 +31,7 @@ public class FillService extends Service {
 
             // Remove all the family members of the user. Because of SQLite foreign keys, their events come down with
             //  the persons.
-            for (Person p : pDAO.findFamilyOfPerson(request.getUsername())) {
+            for (Person p : pDAO.findFamilyOfPersonList(request.getUsername())) {
                 pDAO.delete(p.getPersonID());
             }
 
