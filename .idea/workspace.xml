@@ -71,7 +71,7 @@
       <command value="?" />
     </option>
   </component>
-  <component name="RunManager" selected="Application.Server Port: 8001">
+  <component name="RunManager" selected="Application.Server Port: 8080">
     <configuration name="RegisterService" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="service.RegisterService" />
       <module name="FamilyMapServerStudent" />
@@ -85,11 +85,11 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="Server Port: 8001" type="Application" factoryName="Application" temporary="true">
+    <configuration name="Server Port: 8080" type="Application" factoryName="Application" temporary="true">
       <option name="ALTERNATIVE_JRE_PATH" value="$PROJECT_DIR$/../../../../../../usr/lib/jvm/java-16-openjdk-amd64" />
       <option name="MAIN_CLASS_NAME" value="Server" />
       <module name="FamilyMapServerStudent" />
-      <option name="PROGRAM_PARAMETERS" value="8001" />
+      <option name="PROGRAM_PARAMETERS" value="8080" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -141,18 +141,18 @@
       </method>
     </configuration>
     <list>
-      <item itemvalue="Application.Server Port: 8001" />
+      <item itemvalue="Application.Server Port: 8080" />
+      <item itemvalue="Application.RegisterService" />
       <item itemvalue="JUnit.JSONHandlerTest" />
       <item itemvalue="JUnit.ServerTest" />
-      <item itemvalue="Application.RegisterService" />
       <item itemvalue="JUnit.PersonDAOTest.insertPass2" />
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="Application.Server Port: 8001" />
+        <item itemvalue="Application.Server Port: 8080" />
+        <item itemvalue="JUnit.ServerTest" />
         <item itemvalue="JUnit.PersonDAOTest.insertPass2" />
         <item itemvalue="Application.RegisterService" />
-        <item itemvalue="JUnit.ServerTest" />
         <item itemvalue="JUnit.JSONHandlerTest" />
       </list>
     </recent_temporary>

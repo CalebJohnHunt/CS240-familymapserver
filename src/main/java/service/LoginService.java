@@ -17,12 +17,13 @@ public class LoginService extends Service {
      * @return the response from the API.
      */
     public LoginResult login(LoginRequest request) throws DataAccessException {
+        System.out.println("Login");
         UserDAO uDao = new UserDAO(db.getConnection());
         boolean successfulLogin = uDao.validate(request.getUsername(),request.getPassword());
         try {
             if (successfulLogin) {
                 String authTokenID = AuthTokenGenerator.generate(request.getUsername(), db.getConnection());
-                String personID = new PersonDAO(db.getConnection()).getPersonIDFromUsername(request.getUsername());
+                String personID = uDao.find(request.getUsername()).getPersonID();
                 db.closeConnection(true);
                 return new LoginResult(authTokenID, request.getUsername(), personID);
             }

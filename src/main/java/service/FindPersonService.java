@@ -19,6 +19,7 @@ public class FindPersonService extends Service {
      * @return the response from the API.
      */
     public FindPersonResult find(FindPersonRequest request) throws DataAccessException {
+        System.out.println("FindPerson");
         PersonDAO pDao = new PersonDAO(db.getConnection());
         AuthTokenDAO atDAO = new AuthTokenDAO(db.getConnection());
         try {

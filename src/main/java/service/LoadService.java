@@ -18,6 +18,7 @@ public class LoadService extends Service {
      * @return the response from the /load API.
      */
     public LoadResult load(LoadRequest request) throws DataAccessException {
+        System.out.println("Load");
         int userCount   = 0;
         int personCount = 0;
         int eventCount  = 0;

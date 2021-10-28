@@ -45,7 +45,6 @@ public class FillService extends Service {
 
             int[] itemsAdded = FamilyGenerator.run(new Person(user.getPersonID(), user.getUsername(), user.getFirstName(), user.getLastName(), user.getGender(), null, null, null),
                     request.getGenerations(), db.getConnection());
-            System.out.println("Ran generator!");
 
             db.closeConnection(true);
             return new FillResult(true, "Successfully added " + itemsAdded[0]

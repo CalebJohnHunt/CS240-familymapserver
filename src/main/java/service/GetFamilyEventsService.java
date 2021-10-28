@@ -21,6 +21,7 @@ public class GetFamilyEventsService extends Service {
      * @return the response from the API.
      */
     public GetFamilyEventsResult getFamilyEvents(GetFamilyEventsRequest request) throws DataAccessException {
+        System.out.println("GetFamilyEvents");
         EventDAO eDAO = new EventDAO(db.getConnection());
         AuthTokenDAO atDAO = new AuthTokenDAO(db.getConnection());
         try {

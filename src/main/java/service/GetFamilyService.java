@@ -21,6 +21,7 @@ public class GetFamilyService extends Service {
      * @return the response from the API.
      */
     public GetFamilyResult getFamily(GetFamilyRequest request) throws DataAccessException {
+        System.out.println("GetFamily");
         PersonDAO pDAO = new PersonDAO(db.getConnection());
         AuthTokenDAO atDAO = new AuthTokenDAO(db.getConnection());
         try {

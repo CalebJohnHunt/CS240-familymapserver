@@ -1,6 +1,7 @@
 package handler;
 
 import com.sun.net.httpserver.HttpExchange;
+import service.result.Result;
 
 import java.io.*;
 import java.net.HttpURLConnection;
@@ -59,8 +60,11 @@ public final class HttpUtil {
      * @param result the object to write to the response body.
      * @param exchange the exchange to write to.
      */
-    public static void writeSuccessfulResult(Object result, HttpExchange exchange) throws IOException {
-        exchange.sendResponseHeaders(HttpURLConnection.HTTP_OK, 0);
+    public static void writeSuccessfulResult(Result result, HttpExchange exchange) throws IOException {
+        if (result.isSuccess())
+            exchange.sendResponseHeaders(HttpURLConnection.HTTP_OK, 0);
+        else
+            exchange.sendResponseHeaders(HttpURLConnection.HTTP_BAD_REQUEST, 0);
         Writer resBody = new OutputStreamWriter(exchange.getResponseBody());
         JSONHandler.objectToJsonWriter(result, resBody);
         resBody.close();
