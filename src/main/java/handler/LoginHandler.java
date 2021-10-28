@@ -19,21 +19,21 @@ public class LoginHandler implements HttpHandler {
     @Override
     public void handle(HttpExchange httpExchange) throws IOException {
         try {
-            if (Utility.usedMethod(httpExchange, "post")) {
+            if (HttpUtil.usedMethod(httpExchange, "post")) {
                 InputStream reqBody = httpExchange.getRequestBody();
 
-                String reqData = Utility.readString(reqBody);
+                String reqData = HttpUtil.readString(reqBody);
                 LoginRequest request = (LoginRequest) JSONHandler.jsonToObject(reqData, LoginRequest.class);
                 LoginResult result = new LoginService().login(request);
 
-                Utility.writeSuccessfulResult(result, httpExchange);
+                HttpUtil.writeSuccessfulResult(result, httpExchange);
 
             } else {
-                Utility.handleBadMethod(httpExchange);
+                HttpUtil.handleBadMethod(httpExchange);
             }
         } catch (IOException | DataAccessException e) {
             e.printStackTrace(); // TODO: Logger
-            Utility.handleServerError(httpExchange);
+            HttpUtil.handleServerError(httpExchange);
         }
     }
 }

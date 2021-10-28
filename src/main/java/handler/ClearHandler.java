@@ -18,15 +18,15 @@ public class ClearHandler implements HttpHandler {
     @Override
     public void handle(HttpExchange httpExchange) throws IOException {
         try {
-            if (Utility.usedMethod(httpExchange, "post")) {
+            if (HttpUtil.usedMethod(httpExchange, "post")) {
                 ClearResult result = new ClearService().clear();
 
-                Utility.writeSuccessfulResult(result, httpExchange);
+                HttpUtil.writeSuccessfulResult(result, httpExchange);
             } else {
-                Utility.handleBadMethod(httpExchange);
+                HttpUtil.handleBadMethod(httpExchange);
             }
         } catch (IOException | DataAccessException e) {
-            Utility.handleServerError(httpExchange);
+            HttpUtil.handleServerError(httpExchange);
         }
     }
 }

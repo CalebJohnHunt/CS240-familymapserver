@@ -1,7 +1,7 @@
 package service.utility;
 
 import handler.JSONHandler;
-import handler.Utility;
+import handler.HttpUtil;
 
 import java.io.FileReader;
 import java.io.IOException;
@@ -31,7 +31,7 @@ public class LocationDataWrapper {
     private static void setup() {
         try {
             Reader reader = new FileReader("./json/locations.json");
-            String locationsData = Utility.readString(reader);
+            String locationsData = HttpUtil.readString(reader);
             locationData = (LocationData) JSONHandler.jsonToObject(locationsData, LocationData.class);
         } catch (IOException e) {
             e.printStackTrace(); // TODO: Logger

@@ -29,21 +29,21 @@ public class FindPersonHandler implements HttpHandler {
             }
 
 
-            if (Utility.usedMethod(httpExchange, "get")) {
-                String authTokenID = httpExchange.getRequestHeaders().get("Authorization").get(0);
+            if (HttpUtil.usedMethod(httpExchange, "get")) {
+                String authTokenID = HttpUtil.getAuthorization(httpExchange);
 
                 String personID = URIParameters[2];
                 FindPersonRequest request = new FindPersonRequest(personID, authTokenID);
                 FindPersonResult result = new FindPersonService().find(request);
 
-                Utility.writeSuccessfulResult(result, httpExchange);
+                HttpUtil.writeSuccessfulResult(result, httpExchange);
 
             } else {
-                Utility.handleBadMethod(httpExchange);
+                HttpUtil.handleBadMethod(httpExchange);
             }
         } catch (IOException | DataAccessException e) {
             e.printStackTrace(); // TODO: logger
-            Utility.handleServerError(httpExchange);
+            HttpUtil.handleServerError(httpExchange);
         }
     }
 }

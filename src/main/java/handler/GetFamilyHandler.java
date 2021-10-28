@@ -9,23 +9,29 @@ import service.result.GetFamilyResult;
 
 import java.io.IOException;
 
+/**
+ * Handles /person
+ */
 public class GetFamilyHandler implements HttpHandler {
+    /**
+     * Find all family members related to the user.
+     */
     @Override
     public void handle(HttpExchange httpExchange) throws IOException {
         try {
-            if (Utility.usedMethod(httpExchange, "get")) {
-                String authTokenID = httpExchange.getRequestHeaders().get("authorization").get(0);
+            if (HttpUtil.usedMethod(httpExchange, "get")) {
+                String authTokenID = HttpUtil.getAuthorization(httpExchange);
 
                 GetFamilyRequest request = new GetFamilyRequest(authTokenID);
                 GetFamilyResult result = new GetFamilyService().getFamily(request);
 
-                Utility.writeSuccessfulResult(result, httpExchange);
+                HttpUtil.writeSuccessfulResult(result, httpExchange);
             } else {
-                Utility.handleBadMethod(httpExchange);
+                HttpUtil.handleBadMethod(httpExchange);
             }
         } catch (IOException | DataAccessException e) {
             e.printStackTrace(); // TODO: Logger
-            Utility.handleServerError(httpExchange);
+            HttpUtil.handleServerError(httpExchange);
         }
     }
 }

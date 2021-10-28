@@ -28,7 +28,7 @@ public class FillHandler implements HttpHandler {
         }
 
         try {
-            if (Utility.usedMethod(httpExchange, "post")) {
+            if (HttpUtil.usedMethod(httpExchange, "post")) {
                 String username = URIParameters[2];
                 int generations = 4;
                 if (URIParameters.length > 3) {
@@ -38,17 +38,17 @@ public class FillHandler implements HttpHandler {
                 FillRequest request = new FillRequest(username, generations);
                 FillResult result = new FillService().fill(request);
 
-                Utility.writeSuccessfulResult(result, httpExchange);
+                HttpUtil.writeSuccessfulResult(result, httpExchange);
             } else {
-                Utility.handleBadMethod(httpExchange);
+                HttpUtil.handleBadMethod(httpExchange);
             }
         } catch (NumberFormatException e) {
             httpExchange.sendResponseHeaders(HttpURLConnection.HTTP_BAD_REQUEST, 0);
             FillResult result = new FillResult(false, "Error: Invalid number of generations");
-            Utility.writeSuccessfulResult(result, httpExchange);
+            HttpUtil.writeSuccessfulResult(result, httpExchange);
         } catch (IOException | DataAccessException e) {
             e.printStackTrace(); // TODO: Logger
-            Utility.handleServerError(httpExchange);
+            HttpUtil.handleServerError(httpExchange);
         }
     }
 }

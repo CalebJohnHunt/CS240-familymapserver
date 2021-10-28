@@ -1,7 +1,7 @@
 package service.utility;
 
 import handler.JSONHandler;
-import handler.Utility;
+import handler.HttpUtil;
 
 import java.io.FileReader;
 import java.io.IOException;
@@ -28,15 +28,15 @@ public class NameDataHolder {
     private static void setup() {
         try {
             Reader reader = new FileReader("./json/fnames.json");
-            String locationsData = Utility.readString(reader);
+            String locationsData = HttpUtil.readString(reader);
             fNameData = (NameData) JSONHandler.jsonToObject(locationsData, NameData.class);
 
             reader = new FileReader("./json/mnames.json");
-            locationsData = Utility.readString(reader);
+            locationsData = HttpUtil.readString(reader);
             mNameData = (NameData) JSONHandler.jsonToObject(locationsData, NameData.class);
 
             reader = new FileReader("./json/snames.json");
-            locationsData = Utility.readString(reader);
+            locationsData = HttpUtil.readString(reader);
             sNameData = (NameData) JSONHandler.jsonToObject(locationsData, NameData.class);
         } catch (IOException e) {
             e.printStackTrace();

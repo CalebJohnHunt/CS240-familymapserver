@@ -20,7 +20,7 @@ public class FileHandler implements HttpHandler {
     @Override
     public void handle(HttpExchange httpExchange) throws IOException {
         try {
-            if (Utility.usedMethod(httpExchange, "get")) {
+            if (HttpUtil.usedMethod(httpExchange, "get")) {
 
                 String urlPath = httpExchange.getRequestURI().toString();
                 if (urlPath.equals("") || urlPath.equals("/")) {
@@ -41,11 +41,11 @@ public class FileHandler implements HttpHandler {
                 }
                 respBody.close();
             } else {
-                Utility.handleBadMethod(httpExchange);
+                HttpUtil.handleBadMethod(httpExchange);
             }
         } catch (IOException e) {
             e.printStackTrace(); // TODO: Logger
-            Utility.handleServerError(httpExchange);
+            HttpUtil.handleServerError(httpExchange);
         }
     }
 }
