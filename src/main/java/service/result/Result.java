@@ -1,9 +1,9 @@
 package service.result;
 
 /**
- * The base result class. Includes way to created failed results.
+ * The base result class.
  */
-public class Result {
+public abstract class Result {
     /**
      * The message explaining why the API failed or succeeded.
      */

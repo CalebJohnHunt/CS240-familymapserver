@@ -12,7 +12,6 @@ public class ClearService extends Service {
      * @return the response from the API.
      */
     public ClearResult clear() throws DataAccessException {
-        System.out.println("Clear");
         try {
             db.openConnection();
             db.clearTables();

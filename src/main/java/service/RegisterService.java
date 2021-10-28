@@ -19,7 +19,6 @@ public class RegisterService extends Service {
      * @return the response from the API.
      */
     public RegisterResult register(RegisterRequest request) throws DataAccessException {
-        System.out.println("Register");
         UserDAO uDao = new UserDAO(db.getConnection()); // starts transaction
         User newUser = new User(request.getUsername(), request.getPassword(), request.getEmail(), request.getFirstName(),
                 request.getLastName(), request.getGender(), IDGenerator.generate());

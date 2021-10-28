@@ -19,7 +19,6 @@ public class FindEventService extends Service {
      * @return the response from the API.
      */
     public FindEventResult find(FindEventRequest request) throws DataAccessException {
-        System.out.println("FindEvent");
         EventDAO eDAO = new EventDAO(db.getConnection());
         AuthTokenDAO atDAO = new AuthTokenDAO(db.getConnection());
 

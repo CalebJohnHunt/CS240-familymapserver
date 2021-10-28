@@ -17,7 +17,6 @@ public class LoginService extends Service {
      * @return the response from the API.
      */
     public LoginResult login(LoginRequest request) throws DataAccessException {
-        System.out.println("Login");
         UserDAO uDao = new UserDAO(db.getConnection());
         boolean successfulLogin = uDao.validate(request.getUsername(),request.getPassword());
         try {
