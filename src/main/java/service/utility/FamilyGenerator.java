@@ -106,11 +106,11 @@ public class FamilyGenerator {
         Person person = new Person();
         person.setGender(gender);
         if (gender.equals("f")) {
-            person.setFirstName(NameDataHolder.fRandom());
+            person.setFirstName(NameDataWrapper.fRandom());
         } else {
-            person.setFirstName(NameDataHolder.mRandom());
+            person.setFirstName(NameDataWrapper.mRandom());
         }
-        person.setLastName(NameDataHolder.sRandom());
+        person.setLastName(NameDataWrapper.sRandom());
 
         person.setAssociatedUsername(associatedUsername);
 

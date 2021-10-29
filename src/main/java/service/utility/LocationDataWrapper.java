@@ -13,6 +13,10 @@ import java.util.Random;
  */
 public class LocationDataWrapper {
     /**
+     * File location of the location data.
+     */
+    private static final String fileName = "./json/locations.json";
+    /**
      * The LocationData array wrapper.
      */
     public static LocationData locationData;
@@ -30,7 +34,7 @@ public class LocationDataWrapper {
      */
     private static void setup() {
         try {
-            Reader reader = new FileReader("./json/locations.json");
+            Reader reader = new FileReader(fileName);
             String locationsData = HttpUtil.readString(reader);
             locationData = (LocationData) JSONHandler.jsonToObject(locationsData, LocationData.class);
         } catch (IOException e) {

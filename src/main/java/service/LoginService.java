@@ -1,7 +1,6 @@
 package service;
 
 import dao.DataAccessException;
-import dao.PersonDAO;
 import dao.UserDAO;
 import service.request.LoginRequest;
 import service.result.LoginResult;

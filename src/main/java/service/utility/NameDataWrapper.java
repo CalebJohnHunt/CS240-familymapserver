@@ -11,7 +11,20 @@ import java.util.Random;
 /**
  * The way to interface with the JSON name data (female, male, and surnames).
  */
-public class NameDataHolder {
+public class NameDataWrapper {
+    /**
+     * File location of female name data.
+     */
+    private static final String fNameFileName = "./json/fnames.json";
+    /**
+     * File location of male name data.
+     */
+    private static final String mNameFileName = "./json/mnames.json";
+    /**
+     * File location of surname name data.
+     */
+    private static final String sNameFileName = "./json/snames.json";
+
     public static NameData fNameData;
     public static NameData mNameData;
     public static NameData sNameData;
@@ -27,15 +40,15 @@ public class NameDataHolder {
      */
     private static void setup() {
         try {
-            Reader reader = new FileReader("./json/fnames.json");
+            Reader reader = new FileReader(fNameFileName);
             String locationsData = HttpUtil.readString(reader);
             fNameData = (NameData) JSONHandler.jsonToObject(locationsData, NameData.class);
 
-            reader = new FileReader("./json/mnames.json");
+            reader = new FileReader(mNameFileName);
             locationsData = HttpUtil.readString(reader);
             mNameData = (NameData) JSONHandler.jsonToObject(locationsData, NameData.class);
 
-            reader = new FileReader("./json/snames.json");
+            reader = new FileReader(sNameFileName);
             locationsData = HttpUtil.readString(reader);
             sNameData = (NameData) JSONHandler.jsonToObject(locationsData, NameData.class);
         } catch (IOException e) {

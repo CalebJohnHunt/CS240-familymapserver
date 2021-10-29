@@ -1,14 +1,9 @@
 package dao;
 
-import model.Event;
-import model.Person;
-import model.User;
-
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.List;
 
 /**
  * Maintains the connection to the database.
@@ -103,11 +98,4 @@ public class Database {
         }
     }
 
-    /**
-     * Clears the old database and loads new data into the tables.
-     * @param users list of all users to add to the database.
-     * @param persons list of all persons to add to the database.
-     * @param events list of all events to add to the database.
-     */
-    public void loadNewDatabase(List<User> users, List<Person> persons, List<Event> events) {}
 }

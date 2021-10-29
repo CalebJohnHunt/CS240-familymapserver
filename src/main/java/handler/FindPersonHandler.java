@@ -10,7 +10,7 @@ import service.result.FindPersonResult;
 import java.io.*;
 
 /**
- * Handlers /person/[personID]
+ * Handles /person/[personID]
  */
 public class FindPersonHandler implements HttpHandler {
     /**

@@ -4,12 +4,25 @@ import com.sun.net.httpserver.HttpServer;
 import java.io.IOException;
 import java.net.InetSocketAddress;
 
+/**
+ * Sends and receives all Http.
+ */
 public class Server {
 
+    /**
+     * Maximum number of connections at one time.
+     */
     private static final int MAX_WAITING_CONNECTIONS = 12;
 
+    /**
+     * Main server interface.
+     */
     private HttpServer server;
 
+    /**
+     * Sets up the server with contexts (API calls).
+     * @param portNumber the port to set up the server on.
+     */
     private void run(String portNumber) {
         System.out.println("Initializing HTTP Server");
 

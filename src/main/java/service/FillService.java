@@ -1,8 +1,6 @@
 package service;
 
 import dao.*;
-import model.AuthToken;
-import model.Event;
 import model.Person;
 import model.User;
 import service.request.FillRequest;
