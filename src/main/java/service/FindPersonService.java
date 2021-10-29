@@ -24,7 +24,7 @@ public class FindPersonService extends Service {
         try {
             AuthToken authToken = atDAO.find(request.getAuthTokenID());
             if (authToken == null) {
-                return new FindPersonResult("Error: Bad Auth Token.");
+                return new FindPersonResult("Error: Bad AuthToken.");
             }
 
             Person foundPerson = pDao.find(request.getPersonID());

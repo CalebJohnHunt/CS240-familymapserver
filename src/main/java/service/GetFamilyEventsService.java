@@ -26,7 +26,7 @@ public class GetFamilyEventsService extends Service {
         try {
             AuthToken authToken = atDAO.find(request.getAuthTokenID());
             if (authToken == null) {
-                return new GetFamilyEventsResult("Error: Bad authToken.");
+                return new GetFamilyEventsResult("Error: Bad AuthToken.");
             }
 
             List<Event> eventsList = eDAO.findEventsForUser(authToken.getAssociatedUsername());

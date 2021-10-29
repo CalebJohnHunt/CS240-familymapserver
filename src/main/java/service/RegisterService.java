@@ -36,7 +36,7 @@ public class RegisterService extends Service {
 
         } catch (DataAccessException e) {
             db.closeConnection(false);
-            return new RegisterResult("Error: Couldn't register user.");
+            return new RegisterResult("Error: Could not register user.");
         }
 
     }

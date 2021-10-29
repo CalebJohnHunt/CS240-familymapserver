@@ -26,7 +26,7 @@ public class GetFamilyService extends Service {
         try {
             AuthToken authToken = atDAO.find(request.getAuthTokenID());
             if (authToken == null) {
-                return new GetFamilyResult("Error: Bad authToken.");
+                return new GetFamilyResult("Error: Bad AuthToken.");
             }
 
             List<Person> familyList = pDAO.findAssociatedPersons(authToken.getAssociatedUsername());

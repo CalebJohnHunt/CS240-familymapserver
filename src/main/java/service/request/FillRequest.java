@@ -19,6 +19,7 @@ public class FillRequest {
      */
     public FillRequest(String username) {
         this.username = username;
+        this.generations = 4;
     }
 
     /**
