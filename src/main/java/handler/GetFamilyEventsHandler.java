@@ -4,8 +4,8 @@ import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpHandler;
 import dao.DataAccessException;
 import service.GetFamilyEventsService;
-import service.request.GetFamilyEventsRequest;
-import service.result.GetFamilyEventsResult;
+import request.GetFamilyEventsRequest;
+import result.GetFamilyEventsResult;
 
 import java.io.IOException;
 

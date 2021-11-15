@@ -1,4 +1,4 @@
-package service.result;
+package result;
 
 /**
  * Result of /fill/[username]/{generations}.

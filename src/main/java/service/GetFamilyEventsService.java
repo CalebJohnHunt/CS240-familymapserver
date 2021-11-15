@@ -5,8 +5,8 @@ import dao.DataAccessException;
 import dao.EventDAO;
 import model.AuthToken;
 import model.Event;
-import service.request.GetFamilyEventsRequest;
-import service.result.GetFamilyEventsResult;
+import request.GetFamilyEventsRequest;
+import result.GetFamilyEventsResult;
 
 import java.util.List;
 

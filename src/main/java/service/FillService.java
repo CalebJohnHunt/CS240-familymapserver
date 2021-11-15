@@ -3,8 +3,8 @@ package service;
 import dao.*;
 import model.Person;
 import model.User;
-import service.request.FillRequest;
-import service.result.FillResult;
+import request.FillRequest;
+import result.FillResult;
 import service.utility.FamilyGenerator;
 
 /**

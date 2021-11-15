@@ -8,8 +8,8 @@ import model.Event;
 import model.User;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import service.request.FindEventRequest;
-import service.result.FindEventResult;
+import request.FindEventRequest;
+import result.FindEventResult;
 
 import static org.junit.jupiter.api.Assertions.*;
 

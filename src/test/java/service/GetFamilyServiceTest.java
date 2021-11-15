@@ -8,8 +8,8 @@ import model.Person;
 import model.User;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import service.request.GetFamilyRequest;
-import service.result.GetFamilyResult;
+import request.GetFamilyRequest;
+import result.GetFamilyResult;
 
 import static org.junit.jupiter.api.Assertions.*;
 

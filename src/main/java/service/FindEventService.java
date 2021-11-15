@@ -5,8 +5,8 @@ import dao.DataAccessException;
 import dao.EventDAO;
 import model.AuthToken;
 import model.Event;
-import service.request.FindEventRequest;
-import service.result.FindEventResult;
+import request.FindEventRequest;
+import result.FindEventResult;
 
 /**
  * Service for /event/[eventID].

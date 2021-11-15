@@ -1,7 +1,7 @@
 package service;
 
 import dao.DataAccessException;
-import service.result.ClearResult;
+import result.ClearResult;
 
 /**
  * Service for /clear.

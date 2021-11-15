@@ -5,8 +5,8 @@ import dao.DataAccessException;
 import dao.PersonDAO;
 import model.AuthToken;
 import model.Person;
-import service.request.GetFamilyRequest;
-import service.result.GetFamilyResult;
+import request.GetFamilyRequest;
+import result.GetFamilyResult;
 
 import java.util.List;
 

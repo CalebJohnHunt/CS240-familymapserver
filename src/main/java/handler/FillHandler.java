@@ -4,8 +4,8 @@ import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpHandler;
 import dao.DataAccessException;
 import service.FillService;
-import service.request.FillRequest;
-import service.result.FillResult;
+import request.FillRequest;
+import result.FillResult;
 
 import java.io.IOException;
 import java.net.HttpURLConnection;

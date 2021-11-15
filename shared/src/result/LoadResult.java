@@ -1,15 +1,15 @@
-package service.result;
+package result;
 
 /**
- * Result of /clear.
+ * Result of /load
  */
-public class ClearResult extends Result {
+public class LoadResult extends Result {
 
     /**
-     * Creates a ClearResult
+     * Creates a LoadResult.
      * @param message a message explaining that the API call succeeded or why it failed.
      */
-    public ClearResult(Boolean success, String message) {
+    public LoadResult(Boolean success, String message) {
         setMessage(message);
         setSuccess(success);
     }

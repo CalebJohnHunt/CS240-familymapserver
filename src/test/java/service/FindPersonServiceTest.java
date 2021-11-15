@@ -2,16 +2,14 @@ package service;
 
 import dao.DataAccessException;
 import dao.Database;
-import dao.EventDAO;
 import dao.PersonDAO;
 import model.AuthToken;
-import model.Event;
 import model.Person;
 import model.User;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import service.request.FindPersonRequest;
-import service.result.FindPersonResult;
+import request.FindPersonRequest;
+import result.FindPersonResult;
 
 import static org.junit.jupiter.api.Assertions.*;
 

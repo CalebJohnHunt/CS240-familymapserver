@@ -6,7 +6,7 @@ import dao.Database;
 import model.AuthToken;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import service.result.ClearResult;
+import result.ClearResult;
 
 import static org.junit.jupiter.api.Assertions.*;
 

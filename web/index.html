@@ -16,122 +16,122 @@
   <link rel="stylesheet" href="css/main.css">
   <script type="text/javascript">
 
-    function submit() {
+      function submit() {
       var handle = document.getElementById("handleBox").value;
       var requestBody = document.getElementById("requestBox").value;
       var authtoken = document.getElementById("authtoken").value;
 
       var method = "post";
       if (handle.includes("person") || handle.includes("event")) {
-        method = "get";
+      method = "get";
       }
 
       send(handle, requestBody, method, authtoken);
       return false;
-    }
+      }
 
-    function send(path, params, method, authtoken) {
+      function send(path, params, method, authtoken) {
       var obj = new XMLHttpRequest();
       obj.onreadystatechange = function () {
-        var response = obj.responseText;
-        var responseJson = JSON.parse(response);
-        if (responseJson.authtoken) {
-          document.getElementById("authtoken").value = responseJson.authtoken;
-        }
-        document.getElementById("response").value = formatJson(response);
+      var response = obj.responseText;
+      var responseJson = JSON.parse(response);
+      if (responseJson.authtoken) {
+      document.getElementById("authtoken").value = responseJson.authtoken;
+      }
+      document.getElementById("response").value = formatJson(response);
       };
       obj.open(method, path, false);
       obj.setRequestHeader("Content-Type", "application/json");
       obj.setRequestHeader("Authorization", authtoken);
       obj.send(params);
-    }
+      }
 
-    function formatJson(inputText) {
+      function formatJson(inputText) {
       var temp = "";
       var indent = 0;
       for (var i in inputText) {
-        var char = inputText[i];
-        if (char != null) {
-          if (char === ']' || char === '}') {
-            temp += "\n";
-            indent--;
-            for (var j = 0; j < indent; j++) {
-              temp += '\t';
-            }
+      var char = inputText[i];
+      if (char != null) {
+      if (char === ']' || char === '}') {
+      temp += "\n";
+      indent--;
+      for (var j = 0; j < indent; j++) {
+      temp += '\t';
+      }
 
-          }
+      }
 
-          temp += char;
+      temp += char;
 
-          if (char === ',') {
-            temp += "\n";
+      if (char === ',') {
+      temp += "\n";
 
-            for (j = 0; j < indent; j++) {
-              temp += '\t';
-            }
+      for (j = 0; j < indent; j++) {
+      temp += '\t';
+      }
 
-          }
-          if (char === '{' || char === '[') {
-            temp += "\n";
-            indent++;
-            for (j = 0; j < indent; j++) {
-              temp += '\t';
-            }
-          }
-        }
+      }
+      if (char === '{' || char === '[') {
+      temp += "\n";
+      indent++;
+      for (j = 0; j < indent; j++) {
+      temp += '\t';
+      }
+      }
+      }
       }
 
       return temp;
-    }
+      }
 
-    function login() {
+      function login() {
       window.scrollTo(0, document.body.scrollHeight);
       document.getElementById("handleBox").value = "/user/login";
       document.getElementById("requestBox").value = formatJson("{\"username\":\"username\",\"password\":\"password\"}");
-    }
-    function register() {
+      }
+      function register() {
       window.scrollTo(0, document.body.scrollHeight);
       document.getElementById("handleBox").value = "/user/register";
       document.getElementById("requestBox").value = formatJson("{\"username\":\"username\",\"password\":\"password\"," +
-        "\"email\":\"email\",\"firstName\":\"firstname\",\"lastName\":\"lastname\",\"gender\":\"m/f\"}");
-    }
-    function clear() {
+      "\"email\":\"email\",\"firstName\":\"firstname\",\"lastName\":\"lastname\",\"gender\":\"m/f\"}");
+      }
+      function clear() {
       window.scrollTo(0, document.body.scrollHeight);
       document.getElementById("handleBox").value = "/clear";
       document.getElementById("requestBox").value = "";
-    }
-    function load() {
+      }
+      function load() {
       window.scrollTo(0, document.body.scrollHeight);
       document.getElementById("handleBox").value = "/load";
       document.getElementById("requestBox").value = formatJson("{\"users\":[],\"persons\":[],\"events\":[]}");
-    }
-    function getAllEvents() {
+      }
+      function getAllEvents() {
       window.scrollTo(0, document.body.scrollHeight);
       document.getElementById("handleBox").value = "/event";
       document.getElementById("requestBox").value = "";
-    }
-    function getSingleEvent() {
+      }
+      function getSingleEvent() {
       window.scrollTo(0, document.body.scrollHeight);
       document.getElementById("handleBox").value = "/event/[Replace_With_Event_ID]";
       document.getElementById("requestBox").value = "";
-    }
-    function getAllPersons() {
+      }
+      function getAllPersons() {
       window.scrollTo(0, document.body.scrollHeight);
       document.getElementById("handleBox").value = "/person";
       document.getElementById("requestBox").value = "";
-    }
-    function getSinglePerson() {
+      }
+      function getSinglePerson() {
       window.scrollTo(0, document.body.scrollHeight);
       document.getElementById("handleBox").value = "/person/[Replace_With_Person_ID]";
       document.getElementById("requestBox").value = "";
-    }
-    function fill(gen) {
+      }
+      function fill(gen) {
       window.scrollTo(0, document.body.scrollHeight);
       var api = "/fill/[Replace_With_User_Name]";
       if (gen) api += "/{generations}";
       document.getElementById("handleBox").value = api;
       document.getElementById("requestBox").value = "";
-    }
+      }
   </script>
 </head>
 

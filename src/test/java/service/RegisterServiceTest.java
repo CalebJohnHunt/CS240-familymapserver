@@ -5,8 +5,8 @@ import dao.Database;
 import model.User;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import service.request.RegisterRequest;
-import service.result.RegisterResult;
+import request.RegisterRequest;
+import result.RegisterResult;
 
 import static org.junit.jupiter.api.Assertions.*;
 

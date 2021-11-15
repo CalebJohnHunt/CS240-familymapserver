@@ -5,8 +5,8 @@ import dao.DataAccessException;
 import dao.PersonDAO;
 import model.AuthToken;
 import model.Person;
-import service.request.FindPersonRequest;
-import service.result.FindPersonResult;
+import request.FindPersonRequest;
+import result.FindPersonResult;
 
 /**
  * Service for /person/[personID].

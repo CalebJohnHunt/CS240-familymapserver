@@ -1,29 +1,29 @@
-package service.result;
+package result;
 
 /**
- * Result for /user/register.
+ * Result of /user/login.
  */
-public class RegisterResult extends Result {
+public class LoginResult extends Result {
     /**
-     * The unique ID for the new authToken created when the user registered.
+     * The unique ID for the new authToken for this login.
      */
     private String authtoken;
     /**
-     * The username of the newly registered user.
+     * The username of the user who just logged in.
      */
     private String username;
     /**
-     * The unique ID of the person belonging to the new user.
+     * The ID of the person belonging to the user who just logged in.
      */
     private String personID;
 
     /**
-     * Creates a successful RegisterResult.
-     * @param authTokenId the unique ID for the new authToken created when the user registered.
-     * @param username the username of the newly registered user.
-     * @param personId the unique ID of the person belonging to the new user.
+     * Creates a successful LoginResult.
+     * @param authTokenId the unique ID for the new authToken for this login.
+     * @param username the username of the user who just logged in.
+     * @param personId the ID of the person belonging to the user who just logged in.
      */
-    public RegisterResult(String authTokenId, String username, String personId) {
+    public LoginResult(String authTokenId, String username, String personId) {
         setAuthtoken(authTokenId);
         setUsername(username);
         setPersonID(personId);
@@ -31,10 +31,10 @@ public class RegisterResult extends Result {
     }
 
     /**
-     * Creates a failed RegisterResult.
+     * Creates a failed LoginResult.
      * @param message the reason the call to the API failed.
      */
-    public RegisterResult(String message) {
+    public LoginResult(String message) {
         setMessage(message);
         setSuccess(false);
     }

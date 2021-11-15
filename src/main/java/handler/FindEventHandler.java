@@ -4,8 +4,8 @@ import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpHandler;
 import dao.DataAccessException;
 import service.FindEventService;
-import service.request.FindEventRequest;
-import service.result.FindEventResult;
+import request.FindEventRequest;
+import result.FindEventResult;
 
 import java.io.IOException;
 

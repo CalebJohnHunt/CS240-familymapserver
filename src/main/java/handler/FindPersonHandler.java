@@ -4,8 +4,8 @@ import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpHandler;
 import dao.DataAccessException;
 import service.FindPersonService;
-import service.request.FindPersonRequest;
-import service.result.FindPersonResult;
+import request.FindPersonRequest;
+import result.FindPersonResult;
 
 import java.io.*;
 

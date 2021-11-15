@@ -6,9 +6,9 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
-        <module name="FamilyMapServerStudent" />
         <module name="familymapserver" />
         <module name="CS240-familymapserver" />
+        <module name="FamilyMapServer" />
       </profile>
     </annotationProcessing>
   </component>

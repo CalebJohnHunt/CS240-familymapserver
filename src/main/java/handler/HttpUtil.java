@@ -1,7 +1,8 @@
 package handler;
 
+import Util.JSONHandler;
 import com.sun.net.httpserver.HttpExchange;
-import service.result.Result;
+import result.Result;
 
 import java.io.*;
 import java.net.HttpURLConnection;
@@ -13,37 +14,6 @@ import java.util.Locale;
 public final class HttpUtil {
     // Shouldn't be instantiated.
     private HttpUtil(){}
-
-    /**
-     * Read all the input from a stream and return it as a String.
-     * @param is the input stream to be read.
-     * @return the String with all the input from the input stream.
-     */
-    public static String readString(InputStream is) throws IOException {
-        StringBuilder sb = new StringBuilder();
-        InputStreamReader sr = new InputStreamReader(is);
-        char[] buf = new char[1024];
-        int len;
-        while ((len = sr.read(buf)) > 0) {
-            sb.append(buf, 0, len);
-        }
-        return sb.toString();
-    }
-
-    /**
-     * Read all the input from a reader and return it as a String.
-     * @param r the reader to be read.
-     * @return the String with all the input from the input stream.
-     */
-    public static String readString(Reader r) throws IOException {
-        StringBuilder sb = new StringBuilder();
-        char[] buf = new char[1024];
-        int len;
-        while ((len = r.read(buf)) > 0) {
-            sb.append(buf, 0, len);
-        }
-        return sb.toString();
-    }
 
     /**
      * Checks whether the request used a certain method.
@@ -61,12 +31,20 @@ public final class HttpUtil {
      * @param exchange the exchange to write to.
      */
     public static void writeSuccessfulResult(Result result, HttpExchange exchange) throws IOException {
-        if (result.isSuccess())
+        System.out.println(10);
+        if (result.isSuccess()) {
+            System.out.println(11);
             exchange.sendResponseHeaders(HttpURLConnection.HTTP_OK, 0);
-        else
+        }
+        else {
+            System.out.println(12);
             exchange.sendResponseHeaders(HttpURLConnection.HTTP_BAD_REQUEST, 0);
+        }
+            System.out.println(13);
         Writer resBody = new OutputStreamWriter(exchange.getResponseBody());
+            System.out.println(14);
         JSONHandler.objectToJsonWriter(result, resBody);
+            System.out.println(15);
         resBody.close();
     }
 

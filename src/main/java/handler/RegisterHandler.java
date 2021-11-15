@@ -1,11 +1,13 @@
 package handler;
 
+import Util.JSONHandler;
+import Util.ReadString;
 import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpHandler;
 import dao.DataAccessException;
 import service.RegisterService;
-import service.request.RegisterRequest;
-import service.result.RegisterResult;
+import request.RegisterRequest;
+import result.RegisterResult;
 
 import java.io.*;
 
@@ -23,7 +25,7 @@ public class RegisterHandler implements HttpHandler {
             if (HttpUtil.usedMethod(httpExchange, "post")) {
                 InputStream reqBody = httpExchange.getRequestBody();
 
-                String reqData = HttpUtil.readString(reqBody);
+                String reqData = ReadString.readString(reqBody);
                 RegisterRequest request = (RegisterRequest) JSONHandler.jsonToObject(reqData, RegisterRequest.class);
                 RegisterResult result = new RegisterService().register(request);
 

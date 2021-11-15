@@ -1,11 +1,13 @@
 package handler;
 
+import Util.JSONHandler;
+import Util.ReadString;
 import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpHandler;
 import dao.DataAccessException;
 import service.LoginService;
-import service.request.LoginRequest;
-import service.result.LoginResult;
+import request.LoginRequest;
+import result.LoginResult;
 
 import java.io.*;
 
@@ -21,7 +23,7 @@ public class LoginHandler implements HttpHandler {
         try {
             if (HttpUtil.usedMethod(httpExchange, "post")) {
                 InputStream reqBody = httpExchange.getRequestBody();
-                String reqData = HttpUtil.readString(reqBody);
+                String reqData = ReadString.readString(reqBody);
 
                 LoginRequest request = (LoginRequest) JSONHandler.jsonToObject(reqData, LoginRequest.class);
                 LoginResult result = new LoginService().login(request);

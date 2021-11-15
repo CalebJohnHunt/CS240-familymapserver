@@ -1,7 +1,7 @@
 package service.utility;
 
-import handler.JSONHandler;
-import handler.HttpUtil;
+import Util.JSONHandler;
+import Util.ReadString;
 
 import java.io.FileReader;
 import java.io.IOException;
@@ -41,15 +41,15 @@ public class NameDataWrapper {
     private static void setup() {
         try {
             Reader reader = new FileReader(fNameFileName);
-            String locationsData = HttpUtil.readString(reader);
+            String locationsData = ReadString.readString(reader);
             fNameData = (NameData) JSONHandler.jsonToObject(locationsData, NameData.class);
 
             reader = new FileReader(mNameFileName);
-            locationsData = HttpUtil.readString(reader);
+            locationsData = ReadString.readString(reader);
             mNameData = (NameData) JSONHandler.jsonToObject(locationsData, NameData.class);
 
             reader = new FileReader(sNameFileName);
-            locationsData = HttpUtil.readString(reader);
+            locationsData = ReadString.readString(reader);
             sNameData = (NameData) JSONHandler.jsonToObject(locationsData, NameData.class);
         } catch (IOException e) {
             e.printStackTrace();

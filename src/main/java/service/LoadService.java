@@ -4,8 +4,8 @@ import dao.DataAccessException;
 import dao.EventDAO;
 import dao.PersonDAO;
 import dao.UserDAO;
-import service.request.LoadRequest;
-import service.result.LoadResult;
+import request.LoadRequest;
+import result.LoadResult;
 
 /**
  * Service for /load.

@@ -1,5 +1,6 @@
 package handler;
 
+import Util.JSONHandler;
 import model.AuthToken;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

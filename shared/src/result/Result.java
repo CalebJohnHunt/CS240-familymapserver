@@ -1,4 +1,4 @@
-package service.result;
+package result;
 
 /**
  * The base result class.
