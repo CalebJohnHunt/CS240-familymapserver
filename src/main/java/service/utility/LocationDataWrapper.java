@@ -35,7 +35,7 @@ public class LocationDataWrapper {
     private static void setup() {
         try {
             Reader reader = new FileReader(fileName);
-            String locationsData = ReadString.readString(reader);
+            String locationsData = ReadString.read(reader);
             locationData = (LocationData) JSONHandler.jsonToObject(locationsData, LocationData.class);
         } catch (IOException e) {
             e.printStackTrace(); // TODO: Logger

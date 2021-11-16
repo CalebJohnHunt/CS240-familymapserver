@@ -41,15 +41,15 @@ public class NameDataWrapper {
     private static void setup() {
         try {
             Reader reader = new FileReader(fNameFileName);
-            String locationsData = ReadString.readString(reader);
+            String locationsData = ReadString.read(reader);
             fNameData = (NameData) JSONHandler.jsonToObject(locationsData, NameData.class);
 
             reader = new FileReader(mNameFileName);
-            locationsData = ReadString.readString(reader);
+            locationsData = ReadString.read(reader);
             mNameData = (NameData) JSONHandler.jsonToObject(locationsData, NameData.class);
 
             reader = new FileReader(sNameFileName);
-            locationsData = ReadString.readString(reader);
+            locationsData = ReadString.read(reader);
             sNameData = (NameData) JSONHandler.jsonToObject(locationsData, NameData.class);
         } catch (IOException e) {
             e.printStackTrace();

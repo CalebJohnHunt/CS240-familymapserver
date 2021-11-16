@@ -82,7 +82,7 @@
       <command value="?" />
     </option>
   </component>
-  <component name="RunManager" selected="Application.Server:8080">
+  <component name="RunManager" selected="JUnit.All in FamilyMapServerStudent">
     <configuration name="Server:8080" type="Application" factoryName="Application">
       <option name="MAIN_CLASS_NAME" value="Server" />
       <module name="FamilyMapServer" />

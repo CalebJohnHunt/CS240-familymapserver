@@ -23,7 +23,7 @@ public class LoginHandler implements HttpHandler {
         try {
             if (HttpUtil.usedMethod(httpExchange, "post")) {
                 InputStream reqBody = httpExchange.getRequestBody();
-                String reqData = ReadString.readString(reqBody);
+                String reqData = ReadString.read(reqBody);
 
                 LoginRequest request = (LoginRequest) JSONHandler.jsonToObject(reqData, LoginRequest.class);
                 LoginResult result = new LoginService().login(request);

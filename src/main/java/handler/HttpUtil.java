@@ -31,20 +31,14 @@ public final class HttpUtil {
      * @param exchange the exchange to write to.
      */
     public static void writeSuccessfulResult(Result result, HttpExchange exchange) throws IOException {
-        System.out.println(10);
         if (result.isSuccess()) {
-            System.out.println(11);
             exchange.sendResponseHeaders(HttpURLConnection.HTTP_OK, 0);
         }
         else {
-            System.out.println(12);
             exchange.sendResponseHeaders(HttpURLConnection.HTTP_BAD_REQUEST, 0);
         }
-            System.out.println(13);
         Writer resBody = new OutputStreamWriter(exchange.getResponseBody());
-            System.out.println(14);
         JSONHandler.objectToJsonWriter(result, resBody);
-            System.out.println(15);
         resBody.close();
     }
 

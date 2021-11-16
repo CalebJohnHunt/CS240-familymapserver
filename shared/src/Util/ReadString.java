@@ -13,7 +13,7 @@ public final class ReadString {
      * @param is the input stream to be read.
      * @return the String with all the input from the input stream.
      */
-    public static String readString(InputStream is) throws IOException {
+    public static String read(InputStream is) throws IOException {
         StringBuilder sb = new StringBuilder();
         InputStreamReader sr = new InputStreamReader(is);
         char[] buf = new char[1024];
@@ -29,7 +29,7 @@ public final class ReadString {
      * @param r the reader to be read.
      * @return the String with all the input from the input stream.
      */
-    public static String readString(Reader r) throws IOException {
+    public static String read(Reader r) throws IOException {
         StringBuilder sb = new StringBuilder();
         char[] buf = new char[1024];
         int len;

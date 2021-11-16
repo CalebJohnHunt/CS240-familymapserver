@@ -24,7 +24,7 @@ public class LoadHandler implements HttpHandler {
         try {
             if (HttpUtil.usedMethod(httpExchange, "post")) {
                 InputStream reqBody = httpExchange.getRequestBody();
-                String reqData = ReadString.readString(reqBody);
+                String reqData = ReadString.read(reqBody);
 
 
                 LoadRequest request = (LoadRequest) JSONHandler.jsonToObject(reqData, LoadRequest.class);

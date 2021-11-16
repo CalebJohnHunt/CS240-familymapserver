@@ -25,7 +25,7 @@ public class RegisterHandler implements HttpHandler {
             if (HttpUtil.usedMethod(httpExchange, "post")) {
                 InputStream reqBody = httpExchange.getRequestBody();
 
-                String reqData = ReadString.readString(reqBody);
+                String reqData = ReadString.read(reqBody);
                 RegisterRequest request = (RegisterRequest) JSONHandler.jsonToObject(reqData, RegisterRequest.class);
                 RegisterResult result = new RegisterService().register(request);
 
